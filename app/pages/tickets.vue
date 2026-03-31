@@ -84,25 +84,24 @@ function updateStatus(ticketId: string, status: string) {
 <template>
   <div class="flex h-full">
     <div :class="selectedTicket ? 'hidden lg:block lg:w-1/2 xl:w-3/5' : 'w-full'">
-      <div class="flex items-center justify-between mb-6">
+      <div class="flex items-center justify-between mb-4">
         <div>
           <h1 class="text-2xl font-bold text-[var(--ui-text-highlighted)]">Support Tickets</h1>
-          <p class="text-[var(--ui-text-muted)] text-sm mt-1">{{ filtered.length }} tickets</p>
+          <p class="text-[var(--ui-text-muted)] text-sm mt-0.5">{{ filtered.length }} tickets</p>
         </div>
       </div>
 
-      <UCard class="mb-4">
-        <div class="flex flex-col sm:flex-row gap-3">
-          <UInput
-            v-model="search"
-            placeholder="Search by subject, company or ID..."
-            icon="i-lucide-search"
-            class="flex-1"
-          />
-          <USelect v-model="priorityFilter" :items="priorityOptions" value-key="value" label-key="label" class="w-44" />
-          <USelect v-model="statusFilter" :items="statusOptions" value-key="value" label-key="label" class="w-44" />
-        </div>
-      </UCard>
+      <div class="flex flex-col sm:flex-row gap-2 mb-3 p-3 border border-[var(--ui-border)] rounded-xl bg-[var(--ui-bg-elevated)]">
+        <UInput
+          v-model="search"
+          placeholder="Search by subject, company or ID..."
+          icon="i-lucide-search"
+          class="flex-1"
+          size="sm"
+        />
+        <USelect v-model="priorityFilter" :items="priorityOptions" value-key="value" label-key="label" class="w-40" size="sm" />
+        <USelect v-model="statusFilter" :items="statusOptions" value-key="value" label-key="label" class="w-40" size="sm" />
+      </div>
 
       <div class="space-y-2">
         <div v-if="filtered.length === 0" class="text-center py-16 text-[var(--ui-text-muted)]">
@@ -112,7 +111,7 @@ function updateStatus(ticketId: string, status: string) {
         <div
           v-for="ticket in filtered"
           :key="ticket.id"
-          class="border border-[var(--ui-border)] rounded-xl p-4 cursor-pointer transition-colors"
+          class="border border-[var(--ui-border)] rounded-lg p-3 cursor-pointer transition-colors"
           :class="selectedTicket?.id === ticket.id
             ? 'bg-[var(--ui-bg-accented)] border-[var(--ui-primary)]'
             : 'bg-[var(--ui-bg)] hover:bg-[var(--ui-bg-elevated)]'"
@@ -120,7 +119,7 @@ function updateStatus(ticketId: string, status: string) {
         >
           <div class="flex items-start justify-between gap-3">
             <div class="flex-1 min-w-0">
-              <div class="flex items-center gap-2 mb-1.5">
+              <div class="flex items-center gap-1.5 mb-1">
                 <span class="text-xs font-mono text-[var(--ui-text-muted)]">{{ ticket.id }}</span>
                 <UBadge :color="priorityColor(ticket.priority)" variant="solid" size="xs" class="capitalize">
                   {{ ticket.priority }}
@@ -129,10 +128,13 @@ function updateStatus(ticketId: string, status: string) {
                   {{ statusLabel(ticket.status) }}
                 </UBadge>
               </div>
-              <p class="font-medium text-[var(--ui-text-highlighted)] truncate">{{ ticket.subject }}</p>
-              <div class="flex items-center gap-3 mt-1.5">
+              <p class="font-medium text-[var(--ui-text-highlighted)] truncate text-sm">{{ ticket.subject }}</p>
+              <p class="text-xs text-[var(--ui-text-muted)] mt-0.5 truncate leading-relaxed">{{ ticket.description }}</p>
+              <div class="flex items-center gap-2 mt-1.5">
+                <UIcon name="i-lucide-building" class="w-3 h-3 text-[var(--ui-text-muted)] shrink-0" />
                 <span class="text-xs text-[var(--ui-text-muted)]">{{ ticket.company }}</span>
                 <span class="text-xs text-[var(--ui-text-muted)]">·</span>
+                <UIcon name="i-lucide-user" class="w-3 h-3 text-[var(--ui-text-muted)] shrink-0" />
                 <span class="text-xs text-[var(--ui-text-muted)]">{{ ticket.assignee }}</span>
               </div>
             </div>
@@ -147,14 +149,14 @@ function updateStatus(ticketId: string, status: string) {
 
     <div
       v-if="selectedTicket"
-      class="w-full lg:w-1/2 xl:w-2/5 lg:ml-6 border border-[var(--ui-border)] rounded-xl bg-[var(--ui-bg)] overflow-y-auto"
+      class="w-full lg:w-1/2 xl:w-2/5 lg:ml-4 border border-[var(--ui-border)] rounded-xl bg-[var(--ui-bg)] overflow-y-auto"
     >
-      <div class="p-4 border-b border-[var(--ui-border)] flex items-center justify-between">
+      <div class="px-4 py-3 border-b border-[var(--ui-border)] flex items-center justify-between">
         <h3 class="font-semibold text-[var(--ui-text-highlighted)]">Ticket Detail</h3>
         <UButton icon="i-lucide-x" color="neutral" variant="ghost" size="xs" @click="selectedTicket = null" />
       </div>
 
-      <div class="p-5 space-y-5">
+      <div class="p-4 space-y-4">
         <div>
           <div class="flex items-center gap-2 mb-2">
             <span class="text-xs font-mono text-[var(--ui-text-muted)]">{{ selectedTicket.id }}</span>
@@ -169,7 +171,7 @@ function updateStatus(ticketId: string, status: string) {
 
         <p class="text-sm text-[var(--ui-text)] leading-relaxed">{{ selectedTicket.description }}</p>
 
-        <div class="grid grid-cols-2 gap-4 py-4 border-y border-[var(--ui-border)]">
+        <div class="grid grid-cols-2 gap-3 py-3 border-y border-[var(--ui-border)]">
           <div>
             <p class="text-xs font-medium text-[var(--ui-text-muted)] mb-1">Customer</p>
             <NuxtLink :to="`/customers/${selectedTicket.customerId}`" class="text-sm font-medium text-[var(--ui-primary)] hover:underline">

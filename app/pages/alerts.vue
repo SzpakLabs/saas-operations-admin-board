@@ -70,19 +70,21 @@ function severityIcon(severity: AlertSeverity) {
 
 <template>
   <div>
-    <div class="flex items-center justify-between mb-6">
-      <div>
-        <h1 class="text-2xl font-bold text-[var(--ui-text-highlighted)]">Alerts & Issues</h1>
-        <p class="text-[var(--ui-text-muted)] text-sm mt-1">{{ filtered.length }} alerts</p>
-      </div>
-      <div class="flex items-center gap-3">
-        <div v-if="criticalCount > 0" class="flex items-center gap-1.5 bg-red-50 dark:bg-red-950/30 text-red-600 dark:text-red-400 px-3 py-1.5 rounded-lg text-sm font-medium border border-red-200 dark:border-red-900">
-          <UIcon name="i-lucide-octagon-x" class="w-4 h-4" />
-          {{ criticalCount }} critical
+    <div class="mb-6">
+      <div class="flex items-start justify-between gap-3">
+        <div>
+          <h1 class="text-2xl font-bold text-[var(--ui-text-highlighted)]">Alerts & Issues</h1>
+          <p class="text-[var(--ui-text-muted)] text-sm mt-1">{{ filtered.length }} alerts</p>
         </div>
-        <div class="flex items-center gap-1.5 bg-[var(--ui-bg-elevated)] text-[var(--ui-text-muted)] px-3 py-1.5 rounded-lg text-sm border border-[var(--ui-border)]">
-          <UIcon name="i-lucide-bell" class="w-4 h-4" />
-          {{ activeCount }} active
+        <div class="flex items-center gap-2 flex-wrap justify-end">
+          <div v-if="criticalCount > 0" class="flex items-center gap-1.5 bg-red-50 dark:bg-red-950/30 text-red-600 dark:text-red-400 px-3 py-1.5 rounded-lg text-sm font-medium border border-red-200 dark:border-red-900">
+            <UIcon name="i-lucide-octagon-x" class="w-4 h-4" />
+            {{ criticalCount }} critical
+          </div>
+          <div class="flex items-center gap-1.5 bg-[var(--ui-bg-elevated)] text-[var(--ui-text-muted)] px-3 py-1.5 rounded-lg text-sm border border-[var(--ui-border)]">
+            <UIcon name="i-lucide-bell" class="w-4 h-4" />
+            {{ activeCount }} active
+          </div>
         </div>
       </div>
     </div>
@@ -123,7 +125,7 @@ function severityIcon(severity: AlertSeverity) {
           </div>
 
           <div class="flex-1 min-w-0">
-            <div class="flex items-center gap-2 mb-1">
+            <div class="flex items-center gap-2 mb-1 flex-wrap">
               <UBadge :color="severityColor(alert.severity)" variant="soft" size="xs" class="capitalize">
                 {{ alert.severity }}
               </UBadge>
@@ -135,7 +137,7 @@ function severityIcon(severity: AlertSeverity) {
             <h3 class="font-semibold text-[var(--ui-text-highlighted)]">{{ alert.title }}</h3>
             <p class="text-sm text-[var(--ui-text-muted)] mt-1 leading-relaxed">{{ alert.description }}</p>
 
-            <div class="flex items-center gap-4 mt-3">
+            <div class="flex items-center gap-4 mt-3 flex-wrap">
               <div v-if="alert.customerName" class="flex items-center gap-1.5 text-xs text-[var(--ui-text-muted)]">
                 <UIcon name="i-lucide-building" class="w-3.5 h-3.5" />
                 <NuxtLink v-if="alert.customerId" :to="`/customers/${alert.customerId}`" class="hover:text-[var(--ui-primary)]">
@@ -151,45 +153,45 @@ function severityIcon(severity: AlertSeverity) {
                 {{ timeAgo(alert.createdAt) }}
               </div>
             </div>
-          </div>
 
-          <div class="flex items-center gap-2 shrink-0">
-            <UButton
-              v-if="alert.status === 'active'"
-              size="xs"
-              color="warning"
-              variant="soft"
-              icon="i-lucide-search"
-              @click="alertsStore.updateStatus(alert.id, 'investigating')"
-            >
-              Investigate
-            </UButton>
-            <UButton
-              v-if="alert.status === 'active' || alert.status === 'investigating'"
-              size="xs"
-              color="success"
-              variant="soft"
-              icon="i-lucide-check"
-              @click="alertsStore.updateStatus(alert.id, 'resolved')"
-            >
-              Resolve
-            </UButton>
-            <UButton
-              v-if="alert.status === 'active'"
-              size="xs"
-              color="neutral"
-              variant="outline"
-              icon="i-lucide-x"
-              @click="alertsStore.updateStatus(alert.id, 'dismissed')"
-            >
-              Dismiss
-            </UButton>
-            <UBadge v-if="alert.status === 'resolved'" color="success" variant="soft" size="sm">
-              Resolved
-            </UBadge>
-            <UBadge v-if="alert.status === 'dismissed'" color="neutral" variant="soft" size="sm">
-              Dismissed
-            </UBadge>
+            <div class="flex items-center gap-2 mt-3 flex-wrap">
+              <UButton
+                v-if="alert.status === 'active'"
+                size="xs"
+                color="warning"
+                variant="soft"
+                icon="i-lucide-search"
+                @click="alertsStore.updateStatus(alert.id, 'investigating')"
+              >
+                Investigate
+              </UButton>
+              <UButton
+                v-if="alert.status === 'active' || alert.status === 'investigating'"
+                size="xs"
+                color="success"
+                variant="soft"
+                icon="i-lucide-check"
+                @click="alertsStore.updateStatus(alert.id, 'resolved')"
+              >
+                Resolve
+              </UButton>
+              <UButton
+                v-if="alert.status === 'active'"
+                size="xs"
+                color="neutral"
+                variant="outline"
+                icon="i-lucide-x"
+                @click="alertsStore.updateStatus(alert.id, 'dismissed')"
+              >
+                Dismiss
+              </UButton>
+              <UBadge v-if="alert.status === 'resolved'" color="success" variant="soft" size="sm">
+                Resolved
+              </UBadge>
+              <UBadge v-if="alert.status === 'dismissed'" color="neutral" variant="soft" size="sm">
+                Dismissed
+              </UBadge>
+            </div>
           </div>
         </div>
       </div>
