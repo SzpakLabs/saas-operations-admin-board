@@ -14,9 +14,11 @@ export const useAuthStore = defineStore('auth', {
   actions: {
     login() {
       this.isAuthenticated = true
+      if (import.meta.client) localStorage.setItem('opsboard_auth', 'true')
     },
     logout() {
       this.isAuthenticated = false
+      if (import.meta.client) localStorage.removeItem('opsboard_auth')
     }
   }
 })

@@ -4,7 +4,6 @@ import { useAuthStore } from '~/stores/auth'
 definePageMeta({ layout: false })
 
 const auth = useAuthStore()
-const router = useRouter()
 
 const form = reactive({ email: 'alex@opsboard.io', password: 'password' })
 const loading = ref(false)
@@ -16,7 +15,7 @@ async function handleLogin() {
   await new Promise(r => setTimeout(r, 800))
   if (form.email && form.password) {
     auth.login()
-    router.push('/')
+    await navigateTo('/')
   } else {
     error.value = 'Please enter your email and password.'
   }
