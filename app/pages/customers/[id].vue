@@ -3,6 +3,7 @@ import { customers } from '~/data/customers'
 import { invoices } from '~/data/invoices'
 import { tickets as ticketData } from '~/data/tickets'
 import { notes as noteData } from '~/data/notes'
+import type { BadgeColor, CustomerStatus, InvoiceStatus, TicketPriority, TicketStatus } from '~/types'
 
 definePageMeta({ layout: 'dashboard' })
 
@@ -20,32 +21,32 @@ if (!customer.value) {
   throw createError({ statusCode: 404, statusMessage: 'Customer not found' })
 }
 
-function statusColor(status: string) {
-  const map: Record<string, string> = {
+function statusColor(status: CustomerStatus) {
+  const map: Record<CustomerStatus, BadgeColor> = {
     active: 'success', at_risk: 'warning', onboarding: 'info', churned: 'neutral'
   }
-  return map[status] || 'neutral'
+  return map[status]
 }
 
-function invoiceStatusColor(status: string) {
-  const map: Record<string, string> = {
+function invoiceStatusColor(status: InvoiceStatus) {
+  const map: Record<InvoiceStatus, BadgeColor> = {
     paid: 'success', pending: 'warning', overdue: 'error', void: 'neutral'
   }
-  return map[status] || 'neutral'
+  return map[status]
 }
 
-function ticketPriorityColor(priority: string) {
-  const map: Record<string, string> = {
+function ticketPriorityColor(priority: TicketPriority) {
+  const map: Record<TicketPriority, BadgeColor> = {
     low: 'neutral', medium: 'info', high: 'warning', urgent: 'error'
   }
-  return map[priority] || 'neutral'
+  return map[priority]
 }
 
-function ticketStatusColor(status: string) {
-  const map: Record<string, string> = {
+function ticketStatusColor(status: TicketStatus) {
+  const map: Record<TicketStatus, BadgeColor> = {
     open: 'info', in_progress: 'warning', waiting: 'neutral', resolved: 'success', closed: 'neutral'
   }
-  return map[status] || 'neutral'
+  return map[status]
 }
 
 const planLabel = computed(() => {

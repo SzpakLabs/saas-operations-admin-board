@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useTicketsStore } from '~/stores/tickets'
-import type { Ticket, TicketPriority, TicketStatus } from '~/types'
+import type { BadgeColor, Ticket, TicketPriority, TicketStatus } from '~/types'
 
 definePageMeta({ layout: 'dashboard' })
 
@@ -53,14 +53,14 @@ const filtered = computed(() => {
 })
 
 function priorityColor(priority: TicketPriority) {
-  const map: Record<TicketPriority, string> = {
+  const map: Record<TicketPriority, BadgeColor> = {
     low: 'neutral', medium: 'info', high: 'warning', urgent: 'error'
   }
   return map[priority]
 }
 
 function statusColor(status: TicketStatus) {
-  const map: Record<TicketStatus, string> = {
+  const map: Record<TicketStatus, BadgeColor> = {
     open: 'info', in_progress: 'warning', waiting: 'neutral', resolved: 'success', closed: 'neutral'
   }
   return map[status]

@@ -15,6 +15,8 @@ export interface Customer {
   riskFlag: boolean
 }
 
+export type BadgeColor = 'error' | 'primary' | 'secondary' | 'success' | 'info' | 'warning' | 'neutral'
+
 export type CustomerStatus = 'active' | 'churned' | 'at_risk' | 'onboarding'
 export type PlanTier = 'starter' | 'professional' | 'enterprise' | 'custom'
 

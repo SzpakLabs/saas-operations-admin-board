@@ -15,6 +15,7 @@ import {
 import { customers } from '~/data/customers'
 import { alerts } from '~/data/alerts'
 import { activities } from '~/data/activities'
+import type { AlertSeverity, BadgeColor } from '~/types'
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, PointElement, LineElement, Title, Tooltip, Legend, Filler)
 
@@ -105,14 +106,14 @@ const recentActivities = computed(() => activities.slice(0, 8))
 
 const atRiskCustomers = computed(() => customers.filter(c => c.riskFlag || c.status === 'at_risk'))
 
-function severityColor(severity: string) {
-  const map: Record<string, string> = {
+function severityColor(severity: AlertSeverity) {
+  const map: Record<AlertSeverity, BadgeColor> = {
     critical: 'error',
     high: 'warning',
     medium: 'info',
     low: 'neutral'
   }
-  return map[severity] || 'neutral'
+  return map[severity]
 }
 
 function activityIcon(type: string) {

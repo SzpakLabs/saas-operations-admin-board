@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useAlertsStore } from '~/stores/alerts'
-import type { AlertSeverity, AlertStatus } from '~/types'
+import type { AlertSeverity, AlertStatus, BadgeColor } from '~/types'
 
 definePageMeta({ layout: 'dashboard' })
 
@@ -37,14 +37,14 @@ const criticalCount = computed(() => alertsStore.alerts.filter(a => a.severity =
 const activeCount = computed(() => alertsStore.alerts.filter(a => a.status === 'active' || a.status === 'investigating').length)
 
 function severityColor(severity: AlertSeverity) {
-  const map: Record<AlertSeverity, string> = {
+  const map: Record<AlertSeverity, BadgeColor> = {
     critical: 'error', high: 'warning', medium: 'info', low: 'neutral'
   }
   return map[severity]
 }
 
 function statusColor(status: AlertStatus) {
-  const map: Record<AlertStatus, string> = {
+  const map: Record<AlertStatus, BadgeColor> = {
     active: 'error', investigating: 'warning', resolved: 'success', dismissed: 'neutral'
   }
   return map[status]

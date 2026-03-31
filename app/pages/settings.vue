@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import type { BadgeColor } from '~/types'
+
 definePageMeta({ layout: 'dashboard' })
 
 const notificationSettings = reactive({
@@ -26,7 +28,7 @@ const team = [
   { name: 'Casey Rivera', email: 'casey@opsboard.io', role: 'Billing Admin', status: 'invited' }
 ]
 
-const rolePermissions = [
+const rolePermissions: Array<{ role: string; color: BadgeColor; permissions: string[] }> = [
   {
     role: 'Operations Manager',
     color: 'primary',

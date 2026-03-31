@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { customers as allCustomers } from '~/data/customers'
-import type { Customer, CustomerStatus, PlanTier } from '~/types'
+import type { BadgeColor, Customer, CustomerStatus, PlanTier } from '~/types'
 
 definePageMeta({ layout: 'dashboard' })
 
@@ -71,7 +71,7 @@ function setSort(key: keyof Customer) {
 watch([search, statusFilter, planFilter], () => { page.value = 1 })
 
 function statusColor(status: CustomerStatus) {
-  const map: Record<CustomerStatus, string> = {
+  const map: Record<CustomerStatus, BadgeColor> = {
     active: 'success',
     at_risk: 'warning',
     onboarding: 'info',
@@ -95,7 +95,7 @@ function planLabel(plan: PlanTier) {
 }
 
 function planColor(plan: PlanTier) {
-  const map: Record<PlanTier, string> = {
+  const map: Record<PlanTier, BadgeColor> = {
     starter: 'neutral',
     professional: 'info',
     enterprise: 'primary',

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { subscriptions as allSubs } from '~/data/subscriptions'
-import type { SubscriptionStatus, PlanTier } from '~/types'
+import type { BadgeColor, SubscriptionStatus, PlanTier } from '~/types'
 
 definePageMeta({ layout: 'dashboard' })
 
@@ -47,7 +47,7 @@ const trialCount = computed(() => filtered.value.filter(s => s.status === 'trial
 const pastDueCount = computed(() => filtered.value.filter(s => s.status === 'past_due').length)
 
 function statusColor(status: SubscriptionStatus) {
-  const map: Record<SubscriptionStatus, string> = {
+  const map: Record<SubscriptionStatus, BadgeColor> = {
     active: 'success',
     trial: 'info',
     past_due: 'error',
@@ -69,7 +69,7 @@ function statusLabel(status: SubscriptionStatus) {
 }
 
 function planColor(plan: PlanTier) {
-  const map: Record<PlanTier, string> = {
+  const map: Record<PlanTier, BadgeColor> = {
     starter: 'neutral', professional: 'info', enterprise: 'primary', custom: 'warning'
   }
   return map[plan]
