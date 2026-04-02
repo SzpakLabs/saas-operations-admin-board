@@ -5,6 +5,7 @@ import type { BadgeColor, Customer, CustomerStatus, PlanTier } from '~/types'
 definePageMeta({ layout: 'dashboard' })
 
 const { formatCurrency, formatDate } = useFormatters()
+const { t } = useI18n()
 
 const search = ref('')
 const statusFilter = ref<CustomerStatus | 'all'>('all')
@@ -14,21 +15,30 @@ const sortDir = ref<'asc' | 'desc'>('asc')
 const page = ref(1)
 const pageSize = 10
 
-const statusOptions = [
-  { label: 'All statuses', value: 'all' },
-  { label: 'Active', value: 'active' },
-  { label: 'At Risk', value: 'at_risk' },
-  { label: 'Onboarding', value: 'onboarding' },
-  { label: 'Churned', value: 'churned' }
-]
+const statusOptions = computed(() => [
+  { label: t('customers.statusFilter.all'), value: 'all' },
+  { label: t('customers.statusFilter.active'), value: 'active' },
+  { label: t('customers.statusFilter.atRisk'), value: 'at_risk' },
+  { label: t('customers.statusFilter.onboarding'), value: 'onboarding' },
+  { label: t('customers.statusFilter.churned'), value: 'churned' }
+])
 
-const planOptions = [
-  { label: 'All plans', value: 'all' },
-  { label: 'Starter', value: 'starter' },
-  { label: 'Professional', value: 'professional' },
-  { label: 'Enterprise', value: 'enterprise' },
-  { label: 'Custom', value: 'custom' }
-]
+const planOptions = computed(() => [
+  { label: t('customers.planFilter.all'), value: 'all' },
+  { label: t('customers.planFilter.starter'), value: 'starter' },
+  { label: t('customers.planFilter.professional'), value: 'professional' },
+  { label: t('customers.planFilter.enterprise'), value: 'enterprise' },
+  { label: t('customers.planFilter.custom'), value: 'custom' }
+])
+
+const columns = computed(() => [
+  { key: 'company' as keyof Customer, label: t('customers.columns.company'), sortable: true },
+  { key: 'plan' as keyof Customer, label: t('customers.columns.plan'), sortable: true },
+  { key: 'status' as keyof Customer, label: t('customers.columns.status'), sortable: true },
+  { key: 'mrr' as keyof Customer, label: t('customers.columns.mrr'), sortable: true },
+  { key: 'healthScore' as keyof Customer, label: t('customers.columns.health'), sortable: true },
+  { key: 'renewalDate' as keyof Customer, label: t('customers.columns.renewal'), sortable: true }
+])
 
 const filtered = computed(() => {
   let result = [...allCustomers]
@@ -82,16 +92,16 @@ function statusColor(status: CustomerStatus) {
 
 function statusLabel(status: CustomerStatus) {
   const map: Record<CustomerStatus, string> = {
-    active: 'Active',
-    at_risk: 'At Risk',
-    onboarding: 'Onboarding',
-    churned: 'Churned'
+    active: t('customers.statusFilter.active'),
+    at_risk: t('customers.statusFilter.atRisk'),
+    onboarding: t('customers.statusFilter.onboarding'),
+    churned: t('customers.statusFilter.churned')
   }
   return map[status]
 }
 
 function planLabel(plan: PlanTier) {
-  return plan.charAt(0).toUpperCase() + plan.slice(1)
+  return t(`customers.planFilter.${plan}`)
 }
 
 function planColor(plan: PlanTier) {
@@ -109,32 +119,23 @@ function healthColor(score: number) {
   if (score >= 40) return 'text-yellow-500'
   return 'text-red-500'
 }
-
-const columns: { key: keyof Customer; label: string; sortable?: boolean }[] = [
-  { key: 'company', label: 'Company', sortable: true },
-  { key: 'plan', label: 'Plan', sortable: true },
-  { key: 'status', label: 'Status', sortable: true },
-  { key: 'mrr', label: 'MRR', sortable: true },
-  { key: 'healthScore', label: 'Health', sortable: true },
-  { key: 'renewalDate', label: 'Renewal', sortable: true }
-]
 </script>
 
 <template>
   <div>
     <div class="flex items-center justify-between mb-6">
       <div>
-        <h1 class="text-2xl font-bold text-[var(--ui-text-highlighted)]">Customers</h1>
-        <p class="text-[var(--ui-text-muted)] text-sm mt-1">{{ total }} total customers</p>
+        <h1 class="text-2xl font-bold text-[var(--ui-text-highlighted)]">{{ $t('customers.title') }}</h1>
+        <p class="text-[var(--ui-text-muted)] text-sm mt-1">{{ $t('customers.count', { n: total }) }}</p>
       </div>
-      <UButton icon="i-lucide-download" color="neutral" variant="outline" size="sm">Export</UButton>
+      <UButton icon="i-lucide-download" color="neutral" variant="outline" size="sm">{{ $t('customers.export') }}</UButton>
     </div>
 
     <UCard class="mb-6">
       <div class="flex flex-col sm:flex-row gap-3">
         <UInput
           v-model="search"
-          placeholder="Search by name, company or email..."
+          :placeholder="$t('customers.searchPlaceholder')"
           icon="i-lucide-search"
           class="flex-1"
         />
@@ -173,7 +174,7 @@ const columns: { key: keyof Customer; label: string; sortable?: boolean }[] = [
             <tr v-if="paginated.length === 0">
               <td colspan="6" class="py-16 text-center text-[var(--ui-text-muted)]">
                 <UIcon name="i-lucide-users" class="w-8 h-8 mx-auto mb-2 opacity-40" />
-                <p>No customers match your filters.</p>
+                <p>{{ $t('customers.empty') }}</p>
               </td>
             </tr>
             <tr
@@ -192,7 +193,7 @@ const columns: { key: keyof Customer; label: string; sortable?: boolean }[] = [
                 </div>
               </td>
               <td class="py-3 px-4">
-                <UBadge :color="planColor(customer.plan)" variant="soft" size="sm" class="capitalize">
+                <UBadge :color="planColor(customer.plan)" variant="soft" size="sm">
                   {{ planLabel(customer.plan) }}
                 </UBadge>
               </td>
@@ -229,7 +230,7 @@ const columns: { key: keyof Customer; label: string; sortable?: boolean }[] = [
 
       <div v-if="total > pageSize" class="flex items-center justify-between pt-4 border-t border-[var(--ui-border)]">
         <p class="text-xs text-[var(--ui-text-muted)]">
-          Showing {{ (page - 1) * pageSize + 1 }}–{{ Math.min(page * pageSize, total) }} of {{ total }}
+          {{ $t('customers.showing', { from: (page - 1) * pageSize + 1, to: Math.min(page * pageSize, total), total }) }}
         </p>
         <UPagination v-model:page="page" :total="total" :items-per-page="pageSize" size="sm" />
       </div>

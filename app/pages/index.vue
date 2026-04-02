@@ -22,17 +22,18 @@ ChartJS.register(CategoryScale, LinearScale, BarElement, PointElement, LineEleme
 definePageMeta({ layout: 'dashboard' })
 
 const { formatCurrency, formatDateTime, timeAgo } = useFormatters()
+const { t } = useI18n()
 
 const colorMode = useColorMode()
 
-const kpis = [
-  { label: 'Monthly Recurring Revenue', value: '$41,698', change: 8.3, trend: 'up', icon: 'i-lucide-trending-up', color: 'text-green-500' },
-  { label: 'Active Customers', value: '9', change: 2.1, trend: 'up', icon: 'i-lucide-users', color: 'text-blue-500' },
-  { label: 'Open Tickets', value: '6', change: -12.5, trend: 'down', icon: 'i-lucide-ticket', color: 'text-orange-500' },
-  { label: 'Churn Rate', value: '1.8%', change: -0.3, trend: 'down', icon: 'i-lucide-user-minus', color: 'text-red-500' },
-  { label: 'ARR', value: '$500,376', change: 11.2, trend: 'up', icon: 'i-lucide-dollar-sign', color: 'text-purple-500' },
-  { label: 'Avg Health Score', value: '72', change: -3.1, trend: 'down', icon: 'i-lucide-heart-pulse', color: 'text-pink-500' }
-]
+const kpis = computed(() => [
+  { label: t('dashboard.kpi.mrr'), value: '$41,698', change: 8.3, trend: 'up', icon: 'i-lucide-trending-up', color: 'text-green-500' },
+  { label: t('dashboard.kpi.activeCustomers'), value: '9', change: 2.1, trend: 'up', icon: 'i-lucide-users', color: 'text-blue-500' },
+  { label: t('dashboard.kpi.openTickets'), value: '6', change: -12.5, trend: 'down', icon: 'i-lucide-ticket', color: 'text-orange-500' },
+  { label: t('dashboard.kpi.churnRate'), value: '1.8%', change: -0.3, trend: 'down', icon: 'i-lucide-user-minus', color: 'text-red-500' },
+  { label: t('dashboard.kpi.arr'), value: '$500,376', change: 11.2, trend: 'up', icon: 'i-lucide-dollar-sign', color: 'text-purple-500' },
+  { label: t('dashboard.kpi.avgHealth'), value: '72', change: -3.1, trend: 'down', icon: 'i-lucide-heart-pulse', color: 'text-pink-500' }
+])
 
 const isDark = computed(() => colorMode.value === 'dark')
 
@@ -132,8 +133,7 @@ function activityIcon(type: string) {
 <template>
   <div>
     <div class="mb-6">
-      <h1 class="text-2xl font-bold text-[var(--ui-text-highlighted)]">Operations Overview</h1>
-      <p class="text-[var(--ui-text-muted)] text-sm mt-1">Tuesday, March 31, 2026</p>
+      <h1 class="text-2xl font-bold text-[var(--ui-text-highlighted)]">{{ $t('dashboard.title') }}</h1>
     </div>
 
     <div class="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-6 gap-4 mb-6">
@@ -156,7 +156,7 @@ function activityIcon(type: string) {
           <span class="text-xs" :class="kpi.trend === 'up' ? 'text-green-500' : 'text-red-500'">
             {{ Math.abs(kpi.change) }}%
           </span>
-          <span class="text-xs text-[var(--ui-text-muted)]">vs last month</span>
+          <span class="text-xs text-[var(--ui-text-muted)]">{{ $t('dashboard.vsLastMonth') }}</span>
         </div>
       </UCard>
     </div>
@@ -166,8 +166,8 @@ function activityIcon(type: string) {
         <template #header>
           <div class="flex items-center justify-between">
             <div>
-              <h2 class="text-sm font-semibold text-[var(--ui-text-highlighted)]">Monthly Recurring Revenue</h2>
-              <p class="text-xs text-[var(--ui-text-muted)] mt-0.5">Last 6 months</p>
+              <h2 class="text-sm font-semibold text-[var(--ui-text-highlighted)]">{{ $t('dashboard.mrrChart.title') }}</h2>
+              <p class="text-xs text-[var(--ui-text-muted)] mt-0.5">{{ $t('dashboard.mrrChart.subtitle') }}</p>
             </div>
             <UBadge color="success" variant="soft" size="sm">+8.3%</UBadge>
           </div>
@@ -179,8 +179,8 @@ function activityIcon(type: string) {
 
       <UCard>
         <template #header>
-          <h2 class="text-sm font-semibold text-[var(--ui-text-highlighted)]">Support Tickets</h2>
-          <p class="text-xs text-[var(--ui-text-muted)] mt-0.5">Opened vs resolved</p>
+          <h2 class="text-sm font-semibold text-[var(--ui-text-highlighted)]">{{ $t('dashboard.ticketChart.title') }}</h2>
+          <p class="text-xs text-[var(--ui-text-muted)] mt-0.5">{{ $t('dashboard.ticketChart.subtitle') }}</p>
         </template>
         <div class="h-56">
           <Bar :data="ticketChartData" :options="barChartOptions" />
@@ -192,9 +192,9 @@ function activityIcon(type: string) {
       <UCard class="xl:col-span-2">
         <template #header>
           <div class="flex items-center justify-between">
-            <h2 class="text-sm font-semibold text-[var(--ui-text-highlighted)]">Active Alerts</h2>
+            <h2 class="text-sm font-semibold text-[var(--ui-text-highlighted)]">{{ $t('dashboard.activeAlerts') }}</h2>
             <UButton to="/alerts" variant="ghost" size="xs" color="primary" trailing-icon="i-lucide-arrow-right">
-              View all
+              {{ $t('dashboard.viewAll') }}
             </UButton>
           </div>
         </template>
@@ -221,7 +221,7 @@ function activityIcon(type: string) {
 
       <UCard>
         <template #header>
-          <h2 class="text-sm font-semibold text-[var(--ui-text-highlighted)]">At-Risk Accounts</h2>
+          <h2 class="text-sm font-semibold text-[var(--ui-text-highlighted)]">{{ $t('dashboard.atRisk.title') }}</h2>
         </template>
         <div class="space-y-3">
           <NuxtLink
@@ -233,12 +233,12 @@ function activityIcon(type: string) {
             <UAvatar :text="customer.name.split(' ').map((n: string) => n[0]).join('')" size="sm" />
             <div class="flex-1 min-w-0">
               <p class="text-sm font-medium text-[var(--ui-text)] truncate">{{ customer.company }}</p>
-              <p class="text-xs text-[var(--ui-text-muted)]">Health: {{ customer.healthScore }}</p>
+              <p class="text-xs text-[var(--ui-text-muted)]">{{ $t('dashboard.atRisk.health') }}: {{ customer.healthScore }}</p>
             </div>
-            <UBadge color="error" variant="soft" size="xs">At risk</UBadge>
+            <UBadge color="error" variant="soft" size="xs">{{ $t('dashboard.atRisk.badge') }}</UBadge>
           </NuxtLink>
           <div v-if="atRiskCustomers.length === 0" class="text-sm text-[var(--ui-text-muted)] text-center py-4">
-            No at-risk accounts
+            {{ $t('dashboard.atRisk.empty') }}
           </div>
         </div>
       </UCard>
@@ -246,7 +246,7 @@ function activityIcon(type: string) {
 
     <UCard>
       <template #header>
-        <h2 class="text-sm font-semibold text-[var(--ui-text-highlighted)]">Recent Activity</h2>
+        <h2 class="text-sm font-semibold text-[var(--ui-text-highlighted)]">{{ $t('dashboard.recentActivity') }}</h2>
       </template>
       <div class="space-y-0">
         <div

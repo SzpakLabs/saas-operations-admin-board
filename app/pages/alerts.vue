@@ -5,26 +5,27 @@ import type { AlertSeverity, AlertStatus, BadgeColor } from '~/types'
 definePageMeta({ layout: 'dashboard' })
 
 const { timeAgo } = useFormatters()
+const { t } = useI18n()
 const alertsStore = useAlertsStore()
 
 const severityFilter = ref<AlertSeverity | 'all'>('all')
 const statusFilter = ref<AlertStatus | 'all'>('all')
 
-const severityOptions = [
-  { label: 'All severities', value: 'all' },
-  { label: 'Critical', value: 'critical' },
-  { label: 'High', value: 'high' },
-  { label: 'Medium', value: 'medium' },
-  { label: 'Low', value: 'low' }
-]
+const severityOptions = computed(() => [
+  { label: t('alerts.severity.all'), value: 'all' },
+  { label: t('alerts.severity.critical'), value: 'critical' },
+  { label: t('alerts.severity.high'), value: 'high' },
+  { label: t('alerts.severity.medium'), value: 'medium' },
+  { label: t('alerts.severity.low'), value: 'low' }
+])
 
-const statusOptions = [
-  { label: 'All statuses', value: 'all' },
-  { label: 'Active', value: 'active' },
-  { label: 'Investigating', value: 'investigating' },
-  { label: 'Resolved', value: 'resolved' },
-  { label: 'Dismissed', value: 'dismissed' }
-]
+const statusOptions = computed(() => [
+  { label: t('alerts.status.all'), value: 'all' },
+  { label: t('alerts.status.active'), value: 'active' },
+  { label: t('alerts.status.investigating'), value: 'investigating' },
+  { label: t('alerts.status.resolved'), value: 'resolved' },
+  { label: t('alerts.status.dismissed'), value: 'dismissed' }
+])
 
 const filtered = computed(() => {
   let result = [...alertsStore.alerts]
@@ -52,7 +53,10 @@ function statusColor(status: AlertStatus) {
 
 function statusLabel(status: AlertStatus) {
   const map: Record<AlertStatus, string> = {
-    active: 'Active', investigating: 'Investigating', resolved: 'Resolved', dismissed: 'Dismissed'
+    active: t('alerts.status.active'),
+    investigating: t('alerts.status.investigating'),
+    resolved: t('alerts.status.resolved'),
+    dismissed: t('alerts.status.dismissed')
   }
   return map[status]
 }
@@ -73,17 +77,17 @@ function severityIcon(severity: AlertSeverity) {
     <div class="mb-6">
       <div class="flex items-start justify-between gap-3">
         <div>
-          <h1 class="text-2xl font-bold text-[var(--ui-text-highlighted)]">Alerts & Issues</h1>
-          <p class="text-[var(--ui-text-muted)] text-sm mt-1">{{ filtered.length }} alerts</p>
+          <h1 class="text-2xl font-bold text-[var(--ui-text-highlighted)]">{{ $t('alerts.title') }}</h1>
+          <p class="text-[var(--ui-text-muted)] text-sm mt-1">{{ $t('alerts.count', { n: filtered.length }) }}</p>
         </div>
         <div class="flex items-center gap-2 flex-wrap justify-end">
           <div v-if="criticalCount > 0" class="flex items-center gap-1.5 bg-red-50 dark:bg-red-950/30 text-red-600 dark:text-red-400 px-3 py-1.5 rounded-lg text-sm font-medium border border-red-200 dark:border-red-900">
             <UIcon name="i-lucide-octagon-x" class="w-4 h-4" />
-            {{ criticalCount }} critical
+            {{ $t('alerts.critical', { n: criticalCount }) }}
           </div>
           <div class="flex items-center gap-1.5 bg-[var(--ui-bg-elevated)] text-[var(--ui-text-muted)] px-3 py-1.5 rounded-lg text-sm border border-[var(--ui-border)]">
             <UIcon name="i-lucide-bell" class="w-4 h-4" />
-            {{ activeCount }} active
+            {{ $t('alerts.active', { n: activeCount }) }}
           </div>
         </div>
       </div>
@@ -99,7 +103,7 @@ function severityIcon(severity: AlertSeverity) {
     <div class="space-y-3">
       <div v-if="filtered.length === 0" class="text-center py-16 text-[var(--ui-text-muted)]">
         <UIcon name="i-lucide-bell-off" class="w-8 h-8 mx-auto mb-2 opacity-40" />
-        <p>No alerts match your filters.</p>
+        <p>{{ $t('alerts.empty') }}</p>
       </div>
 
       <div
@@ -163,7 +167,7 @@ function severityIcon(severity: AlertSeverity) {
                 icon="i-lucide-search"
                 @click="alertsStore.updateStatus(alert.id, 'investigating')"
               >
-                Investigate
+                {{ $t('alerts.actions.investigate') }}
               </UButton>
               <UButton
                 v-if="alert.status === 'active' || alert.status === 'investigating'"
@@ -173,7 +177,7 @@ function severityIcon(severity: AlertSeverity) {
                 icon="i-lucide-check"
                 @click="alertsStore.updateStatus(alert.id, 'resolved')"
               >
-                Resolve
+                {{ $t('alerts.actions.resolve') }}
               </UButton>
               <UButton
                 v-if="alert.status === 'active'"
@@ -183,13 +187,13 @@ function severityIcon(severity: AlertSeverity) {
                 icon="i-lucide-x"
                 @click="alertsStore.updateStatus(alert.id, 'dismissed')"
               >
-                Dismiss
+                {{ $t('alerts.actions.dismiss') }}
               </UButton>
               <UBadge v-if="alert.status === 'resolved'" color="success" variant="soft" size="sm">
-                Resolved
+                {{ $t('alerts.status.resolved') }}
               </UBadge>
               <UBadge v-if="alert.status === 'dismissed'" color="neutral" variant="soft" size="sm">
-                Dismissed
+                {{ $t('alerts.status.dismissed') }}
               </UBadge>
             </div>
           </div>

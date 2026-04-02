@@ -9,10 +9,11 @@ definePageMeta({ layout: 'dashboard' })
 
 const route = useRoute()
 const { formatCurrency, formatDate, timeAgo } = useFormatters()
+const { t } = useI18n()
 
 const customer = computed(() => customers.find(c => c.id === route.params.id))
 const customerInvoices = computed(() => invoices.filter(i => i.customerId === route.params.id))
-const customerTickets = computed(() => ticketData.filter(t => t.customerId === route.params.id))
+const customerTickets = computed(() => ticketData.filter(ticket => ticket.customerId === route.params.id))
 const customerNotes = computed(() => noteData.filter(n => n.customerId === route.params.id))
 
 const newNote = ref('')
@@ -50,10 +51,16 @@ function ticketStatusColor(status: TicketStatus) {
 }
 
 const planLabel = computed(() => {
-  const map: Record<string, string> = {
-    starter: 'Starter', professional: 'Professional', enterprise: 'Enterprise', custom: 'Custom'
-  }
-  return customer.value ? map[customer.value.plan] : ''
+  if (!customer.value) return ''
+  return t(`customers.planFilter.${customer.value.plan}`)
+})
+
+const healthLabel = computed(() => {
+  if (!customer.value) return ''
+  const score = customer.value.healthScore
+  if (score >= 70) return t('customers.detail.healthy')
+  if (score >= 40) return t('customers.detail.needsAttention')
+  return t('customers.detail.critical')
 })
 </script>
 
@@ -61,7 +68,7 @@ const planLabel = computed(() => {
   <div v-if="customer">
     <div class="flex items-center gap-2 mb-6">
       <UButton to="/customers" variant="ghost" icon="i-lucide-arrow-left" size="sm" color="neutral">
-        Customers
+        {{ $t('customers.back') }}
       </UButton>
       <UIcon name="i-lucide-chevron-right" class="w-4 h-4 text-[var(--ui-text-muted)]" />
       <span class="text-sm text-[var(--ui-text-muted)]">{{ customer.company }}</span>
@@ -83,7 +90,7 @@ const planLabel = computed(() => {
                 {{ customer.status.replace('_', ' ') }}
               </UBadge>
               <UBadge v-if="customer.riskFlag" color="error" variant="soft" size="sm">
-                Risk Flag
+                {{ $t('customers.detail.riskFlag') }}
               </UBadge>
             </div>
           </div>
@@ -99,39 +106,39 @@ const planLabel = computed(() => {
             </div>
             <div class="flex items-center gap-2 text-[var(--ui-text-muted)]">
               <UIcon name="i-lucide-calendar" class="w-4 h-4 shrink-0" />
-              <span>Customer since {{ formatDate(customer.createdAt) }}</span>
+              <span>{{ $t('customers.detail.customerSince', { date: formatDate(customer.createdAt) }) }}</span>
             </div>
             <div class="flex items-center gap-2 text-[var(--ui-text-muted)]">
               <UIcon name="i-lucide-activity" class="w-4 h-4 shrink-0" />
-              <span>Last active {{ formatDate(customer.lastActive) }}</span>
+              <span>{{ $t('customers.detail.lastActive', { date: formatDate(customer.lastActive) }) }}</span>
             </div>
           </div>
         </UCard>
 
         <UCard>
-          <h3 class="text-sm font-semibold text-[var(--ui-text-highlighted)] mb-4">Subscription</h3>
+          <h3 class="text-sm font-semibold text-[var(--ui-text-highlighted)] mb-4">{{ $t('customers.detail.subscription') }}</h3>
           <div class="space-y-3">
             <div class="flex justify-between items-center">
-              <span class="text-sm text-[var(--ui-text-muted)]">Plan</span>
+              <span class="text-sm text-[var(--ui-text-muted)]">{{ $t('customers.detail.plan') }}</span>
               <UBadge color="primary" variant="soft" size="sm">{{ planLabel }}</UBadge>
             </div>
             <div class="flex justify-between items-center">
-              <span class="text-sm text-[var(--ui-text-muted)]">MRR</span>
+              <span class="text-sm text-[var(--ui-text-muted)]">{{ $t('customers.detail.mrr') }}</span>
               <span class="text-sm font-semibold text-[var(--ui-text)]">{{ formatCurrency(customer.mrr) }}</span>
             </div>
             <div class="flex justify-between items-center">
-              <span class="text-sm text-[var(--ui-text-muted)]">ARR</span>
+              <span class="text-sm text-[var(--ui-text-muted)]">{{ $t('customers.detail.arr') }}</span>
               <span class="text-sm font-semibold text-[var(--ui-text)]">{{ formatCurrency(customer.arr) }}</span>
             </div>
             <div class="flex justify-between items-center">
-              <span class="text-sm text-[var(--ui-text-muted)]">Renewal</span>
+              <span class="text-sm text-[var(--ui-text-muted)]">{{ $t('customers.detail.renewal') }}</span>
               <span class="text-sm text-[var(--ui-text)]">{{ formatDate(customer.renewalDate) }}</span>
             </div>
           </div>
         </UCard>
 
         <UCard>
-          <h3 class="text-sm font-semibold text-[var(--ui-text-highlighted)] mb-4">Health Score</h3>
+          <h3 class="text-sm font-semibold text-[var(--ui-text-highlighted)] mb-4">{{ $t('customers.detail.healthScore') }}</h3>
           <div class="text-center">
             <div class="text-4xl font-bold mb-2" :class="[
               customer.healthScore >= 70 ? 'text-green-500' :
@@ -149,9 +156,7 @@ const planLabel = computed(() => {
                 :style="{ width: `${customer.healthScore}%` }"
               />
             </div>
-            <p class="text-xs text-[var(--ui-text-muted)]">
-              {{ customer.healthScore >= 70 ? 'Healthy' : customer.healthScore >= 40 ? 'Needs attention' : 'Critical' }}
-            </p>
+            <p class="text-xs text-[var(--ui-text-muted)]">{{ healthLabel }}</p>
           </div>
         </UCard>
       </div>
@@ -159,18 +164,18 @@ const planLabel = computed(() => {
       <div class="flex-1 min-w-0 space-y-6">
         <UCard>
           <template #header>
-            <h3 class="text-sm font-semibold text-[var(--ui-text-highlighted)]">Recent Invoices</h3>
+            <h3 class="text-sm font-semibold text-[var(--ui-text-highlighted)]">{{ $t('customers.detail.invoices.title') }}</h3>
           </template>
           <div v-if="customerInvoices.length === 0" class="text-sm text-[var(--ui-text-muted)] py-4 text-center">
-            No invoices found.
+            {{ $t('customers.detail.invoices.empty') }}
           </div>
           <table v-else class="w-full text-sm">
             <thead>
               <tr class="border-b border-[var(--ui-border)]">
-                <th class="text-left py-2 px-3 text-xs font-semibold text-[var(--ui-text-muted)] uppercase">Invoice</th>
-                <th class="text-left py-2 px-3 text-xs font-semibold text-[var(--ui-text-muted)] uppercase">Amount</th>
-                <th class="text-left py-2 px-3 text-xs font-semibold text-[var(--ui-text-muted)] uppercase">Status</th>
-                <th class="text-left py-2 px-3 text-xs font-semibold text-[var(--ui-text-muted)] uppercase">Due Date</th>
+                <th class="text-left py-2 px-3 text-xs font-semibold text-[var(--ui-text-muted)] uppercase">{{ $t('customers.detail.invoices.invoice') }}</th>
+                <th class="text-left py-2 px-3 text-xs font-semibold text-[var(--ui-text-muted)] uppercase">{{ $t('customers.detail.invoices.amount') }}</th>
+                <th class="text-left py-2 px-3 text-xs font-semibold text-[var(--ui-text-muted)] uppercase">{{ $t('customers.detail.invoices.status') }}</th>
+                <th class="text-left py-2 px-3 text-xs font-semibold text-[var(--ui-text-muted)] uppercase">{{ $t('customers.detail.invoices.dueDate') }}</th>
               </tr>
             </thead>
             <tbody>
@@ -194,10 +199,10 @@ const planLabel = computed(() => {
 
         <UCard>
           <template #header>
-            <h3 class="text-sm font-semibold text-[var(--ui-text-highlighted)]">Support Tickets</h3>
+            <h3 class="text-sm font-semibold text-[var(--ui-text-highlighted)]">{{ $t('customers.detail.tickets.title') }}</h3>
           </template>
           <div v-if="customerTickets.length === 0" class="text-sm text-[var(--ui-text-muted)] py-4 text-center">
-            No support tickets.
+            {{ $t('customers.detail.tickets.empty') }}
           </div>
           <div v-else class="space-y-3">
             <div
@@ -224,11 +229,11 @@ const planLabel = computed(() => {
 
         <UCard>
           <template #header>
-            <h3 class="text-sm font-semibold text-[var(--ui-text-highlighted)]">Internal Notes</h3>
+            <h3 class="text-sm font-semibold text-[var(--ui-text-highlighted)]">{{ $t('customers.detail.notes.title') }}</h3>
           </template>
           <div class="space-y-4 mb-4">
             <div v-if="customerNotes.length === 0" class="text-sm text-[var(--ui-text-muted)] text-center py-4">
-              No notes yet.
+              {{ $t('customers.detail.notes.empty') }}
             </div>
             <div
               v-for="note in customerNotes"
@@ -245,7 +250,7 @@ const planLabel = computed(() => {
             </div>
           </div>
           <div class="flex gap-2">
-            <UTextarea v-model="newNote" placeholder="Add an internal note..." class="flex-1" :rows="2" />
+            <UTextarea v-model="newNote" :placeholder="$t('customers.detail.notes.placeholder')" class="flex-1" :rows="2" />
             <UButton
               icon="i-lucide-send"
               color="primary"

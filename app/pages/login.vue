@@ -4,6 +4,7 @@ import { useAuthStore } from '~/stores/auth'
 definePageMeta({ layout: false })
 
 const auth = useAuthStore()
+const { t } = useI18n()
 
 const form = reactive({ email: 'alex@opsboard.io', password: 'password' })
 const loading = ref(false)
@@ -32,28 +33,28 @@ async function handleLogin() {
       </div>
       <div>
         <blockquote class="text-white/90 text-xl font-medium leading-relaxed mb-6">
-          "OpsBoard cut our incident response time in half. Everything our ops team needs is in one place."
+          {{ $t('login.testimonial') }}
         </blockquote>
         <div class="flex items-center gap-3">
           <UAvatar text="RH" size="md" class="bg-white/20 text-white" />
           <div>
-            <p class="text-white font-medium text-sm">Robert Hughes</p>
-            <p class="text-white/70 text-sm">VP Operations, Pinnacle Group</p>
+            <p class="text-white font-medium text-sm">{{ $t('login.author') }}</p>
+            <p class="text-white/70 text-sm">{{ $t('login.authorTitle') }}</p>
           </div>
         </div>
       </div>
       <div class="grid grid-cols-3 gap-6">
         <div>
           <p class="text-white text-2xl font-bold">2,400+</p>
-          <p class="text-white/70 text-sm mt-1">Customers managed</p>
+          <p class="text-white/70 text-sm mt-1">{{ $t('login.customersManaged') }}</p>
         </div>
         <div>
           <p class="text-white text-2xl font-bold">$14.2M</p>
-          <p class="text-white/70 text-sm mt-1">ARR tracked</p>
+          <p class="text-white/70 text-sm mt-1">{{ $t('login.arrTracked') }}</p>
         </div>
         <div>
           <p class="text-white text-2xl font-bold">98.7%</p>
-          <p class="text-white/70 text-sm mt-1">Uptime SLA</p>
+          <p class="text-white/70 text-sm mt-1">{{ $t('login.uptimeSLA') }}</p>
         </div>
       </div>
     </div>
@@ -65,8 +66,8 @@ async function handleLogin() {
           <span class="text-lg font-bold">OpsBoard</span>
         </div>
 
-        <h1 class="text-2xl font-bold text-[var(--ui-text-highlighted)] mb-2">Sign in</h1>
-        <p class="text-[var(--ui-text-muted)] text-sm mb-8">Use the pre-filled credentials to access the demo.</p>
+        <h1 class="text-2xl font-bold text-[var(--ui-text-highlighted)] mb-2">{{ $t('login.title') }}</h1>
+        <p class="text-[var(--ui-text-muted)] text-sm mb-8">{{ $t('login.subtitle') }}</p>
 
         <UAlert
           v-if="error"
@@ -77,17 +78,17 @@ async function handleLogin() {
         />
 
         <form class="space-y-4" @submit.prevent="handleLogin">
-          <UFormField label="Email address">
+          <UFormField :label="$t('login.email')">
             <UInput
               v-model="form.email"
               type="email"
-              placeholder="you@company.com"
+              :placeholder="$t('login.emailPlaceholder')"
               class="w-full"
               icon="i-lucide-mail"
             />
           </UFormField>
 
-          <UFormField label="Password">
+          <UFormField :label="$t('login.password')">
             <UInput
               v-model="form.password"
               type="password"
@@ -98,8 +99,8 @@ async function handleLogin() {
           </UFormField>
 
           <div class="flex items-center justify-between">
-            <UCheckbox label="Remember me" />
-            <UButton variant="link" size="sm" color="primary">Forgot password?</UButton>
+            <UCheckbox :label="$t('login.rememberMe')" />
+            <UButton variant="link" size="sm" color="primary">{{ $t('login.forgotPassword') }}</UButton>
           </div>
 
           <UButton
@@ -109,12 +110,12 @@ async function handleLogin() {
             :loading="loading"
             size="lg"
           >
-            Sign in
+            {{ $t('login.submit') }}
           </UButton>
         </form>
 
         <p class="text-xs text-[var(--ui-text-muted)] text-center mt-8">
-          Demo credentials are pre-filled. Just click Sign in.
+          {{ $t('login.hint') }}
         </p>
       </div>
     </div>

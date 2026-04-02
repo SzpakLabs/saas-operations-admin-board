@@ -5,6 +5,7 @@ import type { BadgeColor, Ticket, TicketPriority, TicketStatus } from '~/types'
 definePageMeta({ layout: 'dashboard' })
 
 const { formatDateTime, timeAgo } = useFormatters()
+const { t } = useI18n()
 const ticketsStore = useTicketsStore()
 
 const search = ref('')
@@ -12,43 +13,43 @@ const priorityFilter = ref<TicketPriority | 'all'>('all')
 const statusFilter = ref<TicketStatus | 'all'>('all')
 const selectedTicket = ref<Ticket | null>(null)
 
-const priorityOptions = [
-  { label: 'All priorities', value: 'all' },
-  { label: 'Urgent', value: 'urgent' },
-  { label: 'High', value: 'high' },
-  { label: 'Medium', value: 'medium' },
-  { label: 'Low', value: 'low' }
-]
+const priorityOptions = computed(() => [
+  { label: t('tickets.priorityFilter.all'), value: 'all' },
+  { label: t('tickets.priorityFilter.urgent'), value: 'urgent' },
+  { label: t('tickets.priorityFilter.high'), value: 'high' },
+  { label: t('tickets.priorityFilter.medium'), value: 'medium' },
+  { label: t('tickets.priorityFilter.low'), value: 'low' }
+])
 
-const statusOptions = [
-  { label: 'All statuses', value: 'all' },
-  { label: 'Open', value: 'open' },
-  { label: 'In Progress', value: 'in_progress' },
-  { label: 'Waiting', value: 'waiting' },
-  { label: 'Resolved', value: 'resolved' },
-  { label: 'Closed', value: 'closed' }
-]
+const statusOptions = computed(() => [
+  { label: t('tickets.statusFilter.all'), value: 'all' },
+  { label: t('tickets.statusFilter.open'), value: 'open' },
+  { label: t('tickets.statusFilter.inProgress'), value: 'in_progress' },
+  { label: t('tickets.statusFilter.waiting'), value: 'waiting' },
+  { label: t('tickets.statusFilter.resolved'), value: 'resolved' },
+  { label: t('tickets.statusFilter.closed'), value: 'closed' }
+])
 
-const statusChangeOptions = [
-  { label: 'Open', value: 'open' },
-  { label: 'In Progress', value: 'in_progress' },
-  { label: 'Waiting', value: 'waiting' },
-  { label: 'Resolved', value: 'resolved' },
-  { label: 'Closed', value: 'closed' }
-]
+const statusChangeOptions = computed(() => [
+  { label: t('tickets.status.open'), value: 'open' },
+  { label: t('tickets.status.inProgress'), value: 'in_progress' },
+  { label: t('tickets.status.waiting'), value: 'waiting' },
+  { label: t('tickets.status.resolved'), value: 'resolved' },
+  { label: t('tickets.status.closed'), value: 'closed' }
+])
 
 const filtered = computed(() => {
   let result = [...ticketsStore.tickets]
   if (search.value) {
     const q = search.value.toLowerCase()
-    result = result.filter(t =>
-      t.subject.toLowerCase().includes(q) ||
-      t.company.toLowerCase().includes(q) ||
-      t.id.toLowerCase().includes(q)
+    result = result.filter(ticket =>
+      ticket.subject.toLowerCase().includes(q) ||
+      ticket.company.toLowerCase().includes(q) ||
+      ticket.id.toLowerCase().includes(q)
     )
   }
-  if (priorityFilter.value !== 'all') result = result.filter(t => t.priority === priorityFilter.value)
-  if (statusFilter.value !== 'all') result = result.filter(t => t.status === statusFilter.value)
+  if (priorityFilter.value !== 'all') result = result.filter(ticket => ticket.priority === priorityFilter.value)
+  if (statusFilter.value !== 'all') result = result.filter(ticket => ticket.status === statusFilter.value)
   return result
 })
 
@@ -68,7 +69,11 @@ function statusColor(status: TicketStatus) {
 
 function statusLabel(status: TicketStatus) {
   const map: Record<TicketStatus, string> = {
-    open: 'Open', in_progress: 'In Progress', waiting: 'Waiting', resolved: 'Resolved', closed: 'Closed'
+    open: t('tickets.status.open'),
+    in_progress: t('tickets.status.inProgress'),
+    waiting: t('tickets.status.waiting'),
+    resolved: t('tickets.status.resolved'),
+    closed: t('tickets.status.closed')
   }
   return map[status]
 }
@@ -76,7 +81,7 @@ function statusLabel(status: TicketStatus) {
 function updateStatus(ticketId: string, status: string) {
   ticketsStore.updateStatus(ticketId, status as TicketStatus)
   if (selectedTicket.value?.id === ticketId) {
-    selectedTicket.value = ticketsStore.tickets.find(t => t.id === ticketId) || null
+    selectedTicket.value = ticketsStore.tickets.find(ticket => ticket.id === ticketId) || null
   }
 }
 </script>
@@ -86,15 +91,15 @@ function updateStatus(ticketId: string, status: string) {
     <div :class="selectedTicket ? 'hidden lg:block lg:w-1/2 xl:w-3/5' : 'w-full'">
       <div class="flex items-center justify-between mb-4">
         <div>
-          <h1 class="text-2xl font-bold text-[var(--ui-text-highlighted)]">Support Tickets</h1>
-          <p class="text-[var(--ui-text-muted)] text-sm mt-0.5">{{ filtered.length }} tickets</p>
+          <h1 class="text-2xl font-bold text-[var(--ui-text-highlighted)]">{{ $t('tickets.title') }}</h1>
+          <p class="text-[var(--ui-text-muted)] text-sm mt-0.5">{{ $t('tickets.count', { n: filtered.length }) }}</p>
         </div>
       </div>
 
       <div class="flex flex-col sm:flex-row gap-2 mb-3 p-3 border border-[var(--ui-border)] rounded-xl bg-[var(--ui-bg-elevated)]">
         <UInput
           v-model="search"
-          placeholder="Search by subject, company or ID..."
+          :placeholder="$t('tickets.searchPlaceholder')"
           icon="i-lucide-search"
           class="flex-1"
           size="sm"
@@ -106,7 +111,7 @@ function updateStatus(ticketId: string, status: string) {
       <div class="space-y-2">
         <div v-if="filtered.length === 0" class="text-center py-16 text-[var(--ui-text-muted)]">
           <UIcon name="i-lucide-ticket" class="w-8 h-8 mx-auto mb-2 opacity-40" />
-          <p>No tickets match your filters.</p>
+          <p>{{ $t('tickets.empty') }}</p>
         </div>
         <div
           v-for="ticket in filtered"
@@ -152,7 +157,7 @@ function updateStatus(ticketId: string, status: string) {
       class="w-full lg:w-1/2 xl:w-2/5 lg:ml-4 border border-[var(--ui-border)] rounded-xl bg-[var(--ui-bg)] overflow-y-auto"
     >
       <div class="px-4 py-3 border-b border-[var(--ui-border)] flex items-center justify-between">
-        <h3 class="font-semibold text-[var(--ui-text-highlighted)]">Ticket Detail</h3>
+        <h3 class="font-semibold text-[var(--ui-text-highlighted)]">{{ $t('tickets.detail.title') }}</h3>
         <UButton icon="i-lucide-x" color="neutral" variant="ghost" size="xs" @click="selectedTicket = null" />
       </div>
 
@@ -173,31 +178,31 @@ function updateStatus(ticketId: string, status: string) {
 
         <div class="grid grid-cols-2 gap-3 py-3 border-y border-[var(--ui-border)]">
           <div>
-            <p class="text-xs font-medium text-[var(--ui-text-muted)] mb-1">Customer</p>
+            <p class="text-xs font-medium text-[var(--ui-text-muted)] mb-1">{{ $t('tickets.detail.customer') }}</p>
             <NuxtLink :to="`/customers/${selectedTicket.customerId}`" class="text-sm font-medium text-[var(--ui-primary)] hover:underline">
               {{ selectedTicket.company }}
             </NuxtLink>
             <p class="text-xs text-[var(--ui-text-muted)]">{{ selectedTicket.customerName }}</p>
           </div>
           <div>
-            <p class="text-xs font-medium text-[var(--ui-text-muted)] mb-1">Assignee</p>
+            <p class="text-xs font-medium text-[var(--ui-text-muted)] mb-1">{{ $t('tickets.detail.assignee') }}</p>
             <div class="flex items-center gap-2">
               <UAvatar :text="selectedTicket.assignee.split(' ').map((n: string) => n[0]).join('')" size="xs" />
               <span class="text-sm text-[var(--ui-text)]">{{ selectedTicket.assignee }}</span>
             </div>
           </div>
           <div>
-            <p class="text-xs font-medium text-[var(--ui-text-muted)] mb-1">Category</p>
+            <p class="text-xs font-medium text-[var(--ui-text-muted)] mb-1">{{ $t('tickets.detail.category') }}</p>
             <p class="text-sm text-[var(--ui-text)]">{{ selectedTicket.category }}</p>
           </div>
           <div>
-            <p class="text-xs font-medium text-[var(--ui-text-muted)] mb-1">Opened</p>
+            <p class="text-xs font-medium text-[var(--ui-text-muted)] mb-1">{{ $t('tickets.detail.opened') }}</p>
             <p class="text-sm text-[var(--ui-text)]">{{ formatDateTime(selectedTicket.createdAt) }}</p>
           </div>
         </div>
 
         <div>
-          <p class="text-xs font-semibold text-[var(--ui-text-muted)] uppercase mb-1.5">Change Status</p>
+          <p class="text-xs font-semibold text-[var(--ui-text-muted)] uppercase mb-1.5">{{ $t('tickets.detail.changeStatus') }}</p>
           <div class="flex flex-wrap gap-1.5">
             <UButton
               v-for="opt in statusChangeOptions"
@@ -214,10 +219,10 @@ function updateStatus(ticketId: string, status: string) {
 
         <div class="flex gap-2 border-t border-[var(--ui-border)] pt-4">
           <UButton size="sm" color="primary" variant="soft" icon="i-lucide-user-plus" class="flex-1">
-            Reassign
+            {{ $t('tickets.detail.reassign') }}
           </UButton>
           <UButton size="sm" color="neutral" variant="soft" icon="i-lucide-link" class="flex-1">
-            Link Account
+            {{ $t('tickets.detail.linkAccount') }}
           </UButton>
         </div>
       </div>

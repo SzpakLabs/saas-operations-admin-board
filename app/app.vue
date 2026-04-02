@@ -1,11 +1,13 @@
 <script setup lang="ts">
+const { locale } = useI18n()
+
 useHead({
   meta: [{ name: 'viewport', content: 'width=device-width, initial-scale=1' }],
   link: [
     { rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' },
     { rel: 'alternate icon', href: '/favicon.ico' }
   ],
-  htmlAttrs: { lang: 'en' }
+  htmlAttrs: { lang: () => locale.value }
 })
 
 useSeoMeta({

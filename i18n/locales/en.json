@@ -1,0 +1,301 @@
+{
+  "common": {
+    "appName": "OpsBoard",
+    "timeAgo": {
+      "justNow": "just now",
+      "minutesAgo": "{n}m ago",
+      "hoursAgo": "{n}h ago",
+      "daysAgo": "{n}d ago"
+    }
+  },
+  "nav": {
+    "dashboard": "Dashboard",
+    "customers": "Customers",
+    "subscriptions": "Subscriptions",
+    "tickets": "Tickets",
+    "alerts": "Alerts",
+    "settings": "Settings",
+    "searchPlaceholder": "Search customers, tickets, alerts..."
+  },
+  "notifications": {
+    "title": "Notifications",
+    "empty": "No unread notifications",
+    "viewAll": "View all alerts"
+  },
+  "userMenu": {
+    "settings": "Settings",
+    "signOut": "Sign out"
+  },
+  "dashboard": {
+    "title": "Operations Overview",
+    "kpi": {
+      "mrr": "Monthly Recurring Revenue",
+      "activeCustomers": "Active Customers",
+      "openTickets": "Open Tickets",
+      "churnRate": "Churn Rate",
+      "arr": "ARR",
+      "avgHealth": "Avg Health Score"
+    },
+    "mrrChart": {
+      "title": "Monthly Recurring Revenue",
+      "subtitle": "Last 6 months"
+    },
+    "ticketChart": {
+      "title": "Support Tickets",
+      "subtitle": "Opened vs resolved"
+    },
+    "activeAlerts": "Active Alerts",
+    "viewAll": "View all",
+    "atRisk": {
+      "title": "At-Risk Accounts",
+      "empty": "No at-risk accounts",
+      "badge": "At risk",
+      "health": "Health"
+    },
+    "recentActivity": "Recent Activity",
+    "vsLastMonth": "vs last month"
+  },
+  "alerts": {
+    "title": "Alerts & Issues",
+    "count": "{n} alerts",
+    "critical": "{n} critical",
+    "active": "{n} active",
+    "empty": "No alerts match your filters.",
+    "actions": {
+      "investigate": "Investigate",
+      "resolve": "Resolve",
+      "dismiss": "Dismiss"
+    },
+    "severity": {
+      "all": "All severities",
+      "critical": "Critical",
+      "high": "High",
+      "medium": "Medium",
+      "low": "Low"
+    },
+    "status": {
+      "all": "All statuses",
+      "active": "Active",
+      "investigating": "Investigating",
+      "resolved": "Resolved",
+      "dismissed": "Dismissed"
+    }
+  },
+  "customers": {
+    "title": "Customers",
+    "count": "{n} total customers",
+    "empty": "No customers match your filters.",
+    "searchPlaceholder": "Search by name, company or email...",
+    "export": "Export",
+    "back": "Customers",
+    "showing": "Showing {from}–{to} of {total}",
+    "statusFilter": {
+      "all": "All statuses",
+      "active": "Active",
+      "atRisk": "At Risk",
+      "onboarding": "Onboarding",
+      "churned": "Churned"
+    },
+    "planFilter": {
+      "all": "All plans",
+      "starter": "Starter",
+      "professional": "Professional",
+      "enterprise": "Enterprise",
+      "custom": "Custom"
+    },
+    "columns": {
+      "company": "Company",
+      "plan": "Plan",
+      "status": "Status",
+      "mrr": "MRR",
+      "health": "Health",
+      "renewal": "Renewal"
+    },
+    "detail": {
+      "customerSince": "Customer since {date}",
+      "lastActive": "Last active {date}",
+      "subscription": "Subscription",
+      "plan": "Plan",
+      "mrr": "MRR",
+      "arr": "ARR",
+      "renewal": "Renewal",
+      "healthScore": "Health Score",
+      "healthy": "Healthy",
+      "needsAttention": "Needs attention",
+      "critical": "Critical",
+      "riskFlag": "Risk Flag",
+      "invoices": {
+        "title": "Recent Invoices",
+        "empty": "No invoices found.",
+        "invoice": "Invoice",
+        "amount": "Amount",
+        "status": "Status",
+        "dueDate": "Due Date"
+      },
+      "tickets": {
+        "title": "Support Tickets",
+        "empty": "No support tickets."
+      },
+      "notes": {
+        "title": "Internal Notes",
+        "empty": "No notes yet.",
+        "placeholder": "Add an internal note..."
+      }
+    }
+  },
+  "subscriptions": {
+    "title": "Subscriptions",
+    "count": "{n} subscriptions",
+    "empty": "No subscriptions match your filters.",
+    "searchPlaceholder": "Search by customer or company...",
+    "kpi": {
+      "totalMrr": "Total Active MRR",
+      "active": "Active",
+      "onTrial": "On Trial",
+      "pastDue": "Past Due"
+    },
+    "statusFilter": {
+      "all": "All statuses",
+      "active": "Active",
+      "trial": "Trial",
+      "pastDue": "Past Due",
+      "paused": "Paused",
+      "canceled": "Canceled"
+    },
+    "planFilter": {
+      "all": "All plans",
+      "starter": "Starter",
+      "professional": "Professional",
+      "enterprise": "Enterprise",
+      "custom": "Custom"
+    },
+    "columns": {
+      "customer": "Customer",
+      "plan": "Plan",
+      "status": "Status",
+      "mrr": "MRR",
+      "billing": "Billing",
+      "renewal": "Renewal"
+    },
+    "status": {
+      "active": "Active",
+      "trial": "Trial",
+      "pastDue": "Past Due",
+      "paused": "Paused",
+      "canceled": "Canceled"
+    },
+    "trialEnds": "Ends {date}"
+  },
+  "tickets": {
+    "title": "Support Tickets",
+    "count": "{n} tickets",
+    "empty": "No tickets match your filters.",
+    "searchPlaceholder": "Search by subject, company or ID...",
+    "detail": {
+      "title": "Ticket Detail",
+      "customer": "Customer",
+      "assignee": "Assignee",
+      "category": "Category",
+      "opened": "Opened",
+      "changeStatus": "Change Status",
+      "reassign": "Reassign",
+      "linkAccount": "Link Account"
+    },
+    "priorityFilter": {
+      "all": "All priorities",
+      "urgent": "Urgent",
+      "high": "High",
+      "medium": "Medium",
+      "low": "Low"
+    },
+    "statusFilter": {
+      "all": "All statuses",
+      "open": "Open",
+      "inProgress": "In Progress",
+      "waiting": "Waiting",
+      "resolved": "Resolved",
+      "closed": "Closed"
+    },
+    "status": {
+      "open": "Open",
+      "inProgress": "In Progress",
+      "waiting": "Waiting",
+      "resolved": "Resolved",
+      "closed": "Closed"
+    }
+  },
+  "settings": {
+    "title": "Settings",
+    "subtitle": "Manage your organization, team, and notification preferences.",
+    "tabs": {
+      "organization": "Organization",
+      "notifications": "Notifications",
+      "team": "Team & Roles",
+      "integrations": "Integrations"
+    },
+    "org": {
+      "title": "Organization Details",
+      "name": "Organization Name",
+      "domain": "Domain",
+      "industry": "Industry",
+      "timezone": "Time Zone",
+      "supportEmail": "Support Email",
+      "save": "Save Changes",
+      "billing": {
+        "title": "Plan & Billing",
+        "planName": "Business Plan",
+        "active": "Active",
+        "features": "Up to 10 team members · Unlimited customers · All features",
+        "manage": "Manage billing"
+      }
+    },
+    "notifications": {
+      "alertDelivery": "Alert Delivery",
+      "emailAlerts": "Email Alerts",
+      "emailAlertsDesc": "Receive alerts via email",
+      "slackNotifications": "Slack Notifications",
+      "slackNotificationsDesc": "Post to a Slack channel (requires integration)",
+      "criticalOnly": "Critical Alerts Only",
+      "criticalOnlyDesc": "Only notify for critical severity issues",
+      "eventTriggers": "Event Triggers",
+      "weeklyDigest": "Weekly summary digest",
+      "trialExpiry": "Trial expiring (5 days)",
+      "paymentFailures": "Payment failures",
+      "churnRisk": "Churn risk detected",
+      "save": "Save Preferences",
+      "saved": "Saved!"
+    },
+    "team": {
+      "title": "Team Members",
+      "invite": "Invite Member",
+      "invited": "Invited",
+      "rolePermissions": "Role Permissions"
+    },
+    "integrations": {
+      "connected": "Connected",
+      "connect": "Connect",
+      "disconnect": "Disconnect",
+      "slackDesc": "Send alerts and notifications to Slack channels",
+      "stripeDesc": "Sync billing data and payment events",
+      "hubspotDesc": "Sync customer data with your CRM",
+      "pagerdutyDesc": "Escalate critical alerts to on-call team"
+    }
+  },
+  "login": {
+    "title": "Sign in",
+    "subtitle": "Use the pre-filled credentials to access the demo.",
+    "email": "Email address",
+    "emailPlaceholder": "you{'@'}company.com",
+    "password": "Password",
+    "rememberMe": "Remember me",
+    "forgotPassword": "Forgot password?",
+    "submit": "Sign in",
+    "hint": "Demo credentials are pre-filled. Just click Sign in.",
+    "testimonial": "\"OpsBoard cut our incident response time in half. Everything our ops team needs is in one place.\"",
+    "author": "Robert Hughes",
+    "authorTitle": "VP Operations, Pinnacle Group",
+    "customersManaged": "Customers managed",
+    "arrTracked": "ARR tracked",
+    "uptimeSLA": "Uptime SLA"
+  }
+}

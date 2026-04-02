@@ -1,0 +1,301 @@
+{
+  "common": {
+    "appName": "OpsBoard",
+    "timeAgo": {
+      "justNow": "gerade eben",
+      "minutesAgo": "vor {n}m",
+      "hoursAgo": "vor {n}h",
+      "daysAgo": "vor {n}T"
+    }
+  },
+  "nav": {
+    "dashboard": "Dashboard",
+    "customers": "Kunden",
+    "subscriptions": "Abonnements",
+    "tickets": "Tickets",
+    "alerts": "Warnungen",
+    "settings": "Einstellungen",
+    "searchPlaceholder": "Kunden, Tickets, Warnungen suchen..."
+  },
+  "notifications": {
+    "title": "Benachrichtigungen",
+    "empty": "Keine ungelesenen Benachrichtigungen",
+    "viewAll": "Alle Warnungen anzeigen"
+  },
+  "userMenu": {
+    "settings": "Einstellungen",
+    "signOut": "Abmelden"
+  },
+  "dashboard": {
+    "title": "Betriebsübersicht",
+    "kpi": {
+      "mrr": "Monatl. wiederkehrende Einnahmen",
+      "activeCustomers": "Aktive Kunden",
+      "openTickets": "Offene Tickets",
+      "churnRate": "Abwanderungsrate",
+      "arr": "ARR",
+      "avgHealth": "Ø Gesundheitswert"
+    },
+    "mrrChart": {
+      "title": "Monatlich wiederkehrende Einnahmen",
+      "subtitle": "Letzte 6 Monate"
+    },
+    "ticketChart": {
+      "title": "Support-Tickets",
+      "subtitle": "Geöffnet vs. gelöst"
+    },
+    "activeAlerts": "Aktive Warnungen",
+    "viewAll": "Alle anzeigen",
+    "atRisk": {
+      "title": "Risikokunden",
+      "empty": "Keine Risikokunden",
+      "badge": "Risikoreich",
+      "health": "Gesundheit"
+    },
+    "recentActivity": "Letzte Aktivitäten",
+    "vsLastMonth": "ggü. Vormonat"
+  },
+  "alerts": {
+    "title": "Warnungen und Probleme",
+    "count": "{n} Warnungen",
+    "critical": "{n} kritisch",
+    "active": "{n} aktiv",
+    "empty": "Keine Warnungen entsprechen Ihren Filtern.",
+    "actions": {
+      "investigate": "Untersuchen",
+      "resolve": "Lösen",
+      "dismiss": "Verwerfen"
+    },
+    "severity": {
+      "all": "Alle Schweregrade",
+      "critical": "Kritisch",
+      "high": "Hoch",
+      "medium": "Mittel",
+      "low": "Niedrig"
+    },
+    "status": {
+      "all": "Alle Status",
+      "active": "Aktiv",
+      "investigating": "In Untersuchung",
+      "resolved": "Gelöst",
+      "dismissed": "Verworfen"
+    }
+  },
+  "customers": {
+    "title": "Kunden",
+    "count": "{n} Kunden gesamt",
+    "empty": "Keine Kunden entsprechen Ihren Filtern.",
+    "searchPlaceholder": "Nach Name, Firma oder E-Mail suchen...",
+    "export": "Exportieren",
+    "back": "Kunden",
+    "showing": "Zeige {from}–{to} von {total}",
+    "statusFilter": {
+      "all": "Alle Status",
+      "active": "Aktiv",
+      "atRisk": "Risikoreich",
+      "onboarding": "Onboarding",
+      "churned": "Abgewandert"
+    },
+    "planFilter": {
+      "all": "Alle Pläne",
+      "starter": "Starter",
+      "professional": "Professional",
+      "enterprise": "Enterprise",
+      "custom": "Individuell"
+    },
+    "columns": {
+      "company": "Unternehmen",
+      "plan": "Plan",
+      "status": "Status",
+      "mrr": "MRR",
+      "health": "Gesundheit",
+      "renewal": "Verlängerung"
+    },
+    "detail": {
+      "customerSince": "Kunde seit {date}",
+      "lastActive": "Zuletzt aktiv {date}",
+      "subscription": "Abonnement",
+      "plan": "Plan",
+      "mrr": "MRR",
+      "arr": "ARR",
+      "renewal": "Verlängerung",
+      "healthScore": "Gesundheitswert",
+      "healthy": "Gesund",
+      "needsAttention": "Benötigt Aufmerksamkeit",
+      "critical": "Kritisch",
+      "riskFlag": "Risikomarkierung",
+      "invoices": {
+        "title": "Letzte Rechnungen",
+        "empty": "Keine Rechnungen gefunden.",
+        "invoice": "Rechnung",
+        "amount": "Betrag",
+        "status": "Status",
+        "dueDate": "Fälligkeitsdatum"
+      },
+      "tickets": {
+        "title": "Support-Tickets",
+        "empty": "Keine Support-Tickets."
+      },
+      "notes": {
+        "title": "Interne Notizen",
+        "empty": "Noch keine Notizen.",
+        "placeholder": "Interne Notiz hinzufügen..."
+      }
+    }
+  },
+  "subscriptions": {
+    "title": "Abonnements",
+    "count": "{n} Abonnements",
+    "empty": "Keine Abonnements entsprechen Ihren Filtern.",
+    "searchPlaceholder": "Nach Kunde oder Firma suchen...",
+    "kpi": {
+      "totalMrr": "Gesamter aktiver MRR",
+      "active": "Aktiv",
+      "onTrial": "Im Test",
+      "pastDue": "Überfällig"
+    },
+    "statusFilter": {
+      "all": "Alle Status",
+      "active": "Aktiv",
+      "trial": "Test",
+      "pastDue": "Überfällig",
+      "paused": "Pausiert",
+      "canceled": "Gekündigt"
+    },
+    "planFilter": {
+      "all": "Alle Pläne",
+      "starter": "Starter",
+      "professional": "Professional",
+      "enterprise": "Enterprise",
+      "custom": "Individuell"
+    },
+    "columns": {
+      "customer": "Kunde",
+      "plan": "Plan",
+      "status": "Status",
+      "mrr": "MRR",
+      "billing": "Abrechnung",
+      "renewal": "Verlängerung"
+    },
+    "status": {
+      "active": "Aktiv",
+      "trial": "Test",
+      "pastDue": "Überfällig",
+      "paused": "Pausiert",
+      "canceled": "Gekündigt"
+    },
+    "trialEnds": "Endet {date}"
+  },
+  "tickets": {
+    "title": "Support-Tickets",
+    "count": "{n} Tickets",
+    "empty": "Keine Tickets entsprechen Ihren Filtern.",
+    "searchPlaceholder": "Nach Betreff, Firma oder ID suchen...",
+    "detail": {
+      "title": "Ticket-Details",
+      "customer": "Kunde",
+      "assignee": "Bearbeiter",
+      "category": "Kategorie",
+      "opened": "Geöffnet",
+      "changeStatus": "Status ändern",
+      "reassign": "Neu zuweisen",
+      "linkAccount": "Konto verknüpfen"
+    },
+    "priorityFilter": {
+      "all": "Alle Prioritäten",
+      "urgent": "Dringend",
+      "high": "Hoch",
+      "medium": "Mittel",
+      "low": "Niedrig"
+    },
+    "statusFilter": {
+      "all": "Alle Status",
+      "open": "Offen",
+      "inProgress": "In Bearbeitung",
+      "waiting": "Wartend",
+      "resolved": "Gelöst",
+      "closed": "Geschlossen"
+    },
+    "status": {
+      "open": "Offen",
+      "inProgress": "In Bearbeitung",
+      "waiting": "Wartend",
+      "resolved": "Gelöst",
+      "closed": "Geschlossen"
+    }
+  },
+  "settings": {
+    "title": "Einstellungen",
+    "subtitle": "Verwalten Sie Ihre Organisation, Ihr Team und Ihre Benachrichtigungseinstellungen.",
+    "tabs": {
+      "organization": "Organisation",
+      "notifications": "Benachrichtigungen",
+      "team": "Team & Rollen",
+      "integrations": "Integrationen"
+    },
+    "org": {
+      "title": "Organisationsdetails",
+      "name": "Organisationsname",
+      "domain": "Domain",
+      "industry": "Branche",
+      "timezone": "Zeitzone",
+      "supportEmail": "Support-E-Mail",
+      "save": "Änderungen speichern",
+      "billing": {
+        "title": "Plan & Abrechnung",
+        "planName": "Business-Plan",
+        "active": "Aktiv",
+        "features": "Bis zu 10 Teammitglieder · Unbegrenzte Kunden · Alle Funktionen",
+        "manage": "Abrechnung verwalten"
+      }
+    },
+    "notifications": {
+      "alertDelivery": "Warnungsbenachrichtigung",
+      "emailAlerts": "E-Mail-Warnungen",
+      "emailAlertsDesc": "Warnungen per E-Mail empfangen",
+      "slackNotifications": "Slack-Benachrichtigungen",
+      "slackNotificationsDesc": "In einen Slack-Kanal posten (erfordert Integration)",
+      "criticalOnly": "Nur kritische Warnungen",
+      "criticalOnlyDesc": "Nur bei kritischen Problemen benachrichtigen",
+      "eventTriggers": "Ereignisauslöser",
+      "weeklyDigest": "Wöchentliche Zusammenfassung",
+      "trialExpiry": "Test läuft ab (5 Tage)",
+      "paymentFailures": "Zahlungsfehler",
+      "churnRisk": "Abwanderungsrisiko erkannt",
+      "save": "Einstellungen speichern",
+      "saved": "Gespeichert!"
+    },
+    "team": {
+      "title": "Teammitglieder",
+      "invite": "Mitglied einladen",
+      "invited": "Eingeladen",
+      "rolePermissions": "Rollenberechtigungen"
+    },
+    "integrations": {
+      "connected": "Verbunden",
+      "connect": "Verbinden",
+      "disconnect": "Trennen",
+      "slackDesc": "Warnungen und Benachrichtigungen an Slack-Kanäle senden",
+      "stripeDesc": "Abrechnungsdaten und Zahlungsereignisse synchronisieren",
+      "hubspotDesc": "Kundendaten mit Ihrem CRM synchronisieren",
+      "pagerdutyDesc": "Kritische Warnungen an das Bereitschaftsteam eskalieren"
+    }
+  },
+  "login": {
+    "title": "Anmelden",
+    "subtitle": "Verwenden Sie die vorausgefüllten Anmeldedaten, um auf die Demo zuzugreifen.",
+    "email": "E-Mail-Adresse",
+    "emailPlaceholder": "sie{'@'}unternehmen.com",
+    "password": "Passwort",
+    "rememberMe": "Angemeldet bleiben",
+    "forgotPassword": "Passwort vergessen?",
+    "submit": "Anmelden",
+    "hint": "Anmeldedaten sind vorausgefüllt. Klicken Sie einfach auf Anmelden.",
+    "testimonial": "\"OpsBoard hat unsere Reaktionszeit auf Vorfälle halbiert. Alles, was unser Team braucht, ist an einem Ort.\"",
+    "author": "Robert Hughes",
+    "authorTitle": "VP Operations, Pinnacle Group",
+    "customersManaged": "Verwaltete Kunden",
+    "arrTracked": "Verfolgter ARR",
+    "uptimeSLA": "Verfügbarkeits-SLA"
+  }
+}

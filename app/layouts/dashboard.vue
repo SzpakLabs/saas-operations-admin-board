@@ -5,36 +5,53 @@ import { alerts } from '~/data/alerts'
 const auth = useAuthStore()
 const router = useRouter()
 const route = useRoute()
+const { t, locale, setLocale } = useI18n()
 
-const navigation = [
-  { label: 'Dashboard', icon: 'i-lucide-layout-dashboard', to: '/' },
-  { label: 'Customers', icon: 'i-lucide-users', to: '/customers' },
-  { label: 'Subscriptions', icon: 'i-lucide-credit-card', to: '/subscriptions' },
-  { label: 'Tickets', icon: 'i-lucide-ticket', to: '/tickets' },
-  { label: 'Alerts', icon: 'i-lucide-bell-ring', to: '/alerts' },
-  { label: 'Settings', icon: 'i-lucide-settings', to: '/settings' }
+const localeList = [
+  { code: 'en', name: 'English' },
+  { code: 'es', name: 'Español' },
+  { code: 'it', name: 'Italiano' },
+  { code: 'fr', name: 'Français' },
+  { code: 'de', name: 'Deutsch' }
 ]
 
-const userMenuItems = [
+const navigation = computed(() => [
+  { label: t('nav.dashboard'), icon: 'i-lucide-layout-dashboard', to: '/' },
+  { label: t('nav.customers'), icon: 'i-lucide-users', to: '/customers' },
+  { label: t('nav.subscriptions'), icon: 'i-lucide-credit-card', to: '/subscriptions' },
+  { label: t('nav.tickets'), icon: 'i-lucide-ticket', to: '/tickets' },
+  { label: t('nav.alerts'), icon: 'i-lucide-bell-ring', to: '/alerts' },
+  { label: t('nav.settings'), icon: 'i-lucide-settings', to: '/settings' }
+])
+
+const userMenuItems = computed(() => [
   [{
     label: auth.user.name,
     slot: 'account',
     disabled: true
   }],
   [{
-    label: 'Settings',
+    label: t('userMenu.settings'),
     icon: 'i-lucide-settings',
     onSelect: () => router.push('/settings')
   }],
   [{
-    label: 'Sign out',
+    label: t('userMenu.signOut'),
     icon: 'i-lucide-log-out',
     onSelect: () => {
       auth.logout()
       router.push('/login')
     }
   }]
-]
+])
+
+const langMenuItems = computed(() => [
+  localeList.map(l => ({
+    label: l.name,
+    icon: locale.value === l.code ? 'i-lucide-check' : undefined,
+    onSelect: () => setLocale(l.code)
+  }))
+])
 
 const searchQuery = ref('')
 const mobileMenuOpen = ref(false)
@@ -155,7 +172,7 @@ watch(() => route.path, () => {
         <div class="hidden md:flex items-center gap-2 flex-1 max-w-md">
           <UInput
             v-model="searchQuery"
-            placeholder="Search customers, tickets, alerts..."
+            :placeholder="$t('nav.searchPlaceholder')"
             icon="i-lucide-search"
             class="w-full"
             size="sm"
@@ -177,11 +194,11 @@ watch(() => route.path, () => {
             <template #content>
               <div class="w-80 max-h-96 overflow-y-auto">
                 <div class="px-4 py-3 border-b border-[var(--ui-border)] flex items-center justify-between">
-                  <span class="text-sm font-semibold text-[var(--ui-text)]">Notifications</span>
+                  <span class="text-sm font-semibold text-[var(--ui-text)]">{{ $t('notifications.title') }}</span>
                   <UBadge :label="String(unreadAlerts.length)" color="error" size="xs" />
                 </div>
                 <div v-if="unreadAlerts.length === 0" class="px-4 py-6 text-center text-sm text-[var(--ui-text-muted)]">
-                  No unread notifications
+                  {{ $t('notifications.empty') }}
                 </div>
                 <div
                   v-for="alert in unreadAlerts"
@@ -200,7 +217,7 @@ watch(() => route.path, () => {
                 </div>
                 <div class="px-4 py-2 border-t border-[var(--ui-border)]">
                   <UButton
-                    label="View all alerts"
+                    :label="$t('notifications.viewAll')"
                     variant="ghost"
                     color="neutral"
                     size="xs"
@@ -211,6 +228,17 @@ watch(() => route.path, () => {
               </div>
             </template>
           </UPopover>
+
+          <UDropdownMenu :items="langMenuItems">
+            <UButton
+              color="neutral"
+              variant="ghost"
+              size="sm"
+              class="font-medium text-xs w-9"
+            >
+              {{ locale.toUpperCase() }}
+            </UButton>
+          </UDropdownMenu>
 
           <UColorModeButton size="sm" />
 
