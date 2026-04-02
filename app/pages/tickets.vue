@@ -212,11 +212,11 @@ function updateStatus(ticketId: string, status: string) {
           </div>
         </div>
 
-        <div class="flex gap-2 pt-2">
-          <UButton size="sm" color="neutral" variant="outline" icon="i-lucide-user-plus" class="flex-1">
+        <div class="flex gap-2 border-t border-[var(--ui-border)] pt-4">
+          <UButton size="sm" color="primary" variant="soft" icon="i-lucide-user-plus" class="flex-1">
             Reassign
           </UButton>
-          <UButton size="sm" color="neutral" variant="outline" icon="i-lucide-link" class="flex-1">
+          <UButton size="sm" color="neutral" variant="soft" icon="i-lucide-link" class="flex-1">
             Link Account
           </UButton>
         </div>
