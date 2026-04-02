@@ -197,14 +197,14 @@ function updateStatus(ticketId: string, status: string) {
         </div>
 
         <div>
-          <p class="text-xs font-semibold text-[var(--ui-text-muted)] uppercase mb-2">Change Status</p>
-          <div class="flex flex-wrap gap-2">
+          <p class="text-xs font-semibold text-[var(--ui-text-muted)] uppercase mb-1.5">Change Status</p>
+          <div class="flex flex-wrap gap-1.5">
             <UButton
               v-for="opt in statusChangeOptions"
               :key="opt.value"
               size="xs"
               :color="selectedTicket.status === opt.value ? 'primary' : 'neutral'"
-              :variant="selectedTicket.status === opt.value ? 'solid' : 'outline'"
+              :variant="selectedTicket.status === opt.value ? 'solid' : 'ghost'"
               @click="updateStatus(selectedTicket.id, opt.value)"
             >
               {{ opt.label }}
