@@ -13,7 +13,7 @@ const localeList = [
   { code: 'it', name: 'Italiano' },
   { code: 'fr', name: 'Français' },
   { code: 'de', name: 'Deutsch' }
-]
+] as const
 
 const navigation = computed(() => [
   { label: t('nav.dashboard'), icon: 'i-lucide-layout-dashboard', to: '/' },
