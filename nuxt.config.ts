@@ -24,9 +24,5 @@ export default defineNuxtConfig({
 
   devtools: { enabled: false },
 
-  routeRules: {
-    "/": { prerender: true },
-  },
-
   compatibilityDate: "2025-01-15",
 });
