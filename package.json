@@ -8,7 +8,10 @@
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
     "generate": "nuxt generate",
-    "typecheck": "nuxt typecheck"
+    "lint": "echo \"No lint configured\"",
+    "test": "echo \"No tests configured\"",
+    "typecheck": "nuxt typecheck",
+    "check": "bun run typecheck && bun run lint && bun run test && bun run build"
   },
   "dependencies": {
     "@iconify-json/lucide": "^1.2.100",
