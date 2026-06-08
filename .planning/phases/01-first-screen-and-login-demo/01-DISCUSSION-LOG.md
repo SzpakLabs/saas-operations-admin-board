@@ -3,9 +3,9 @@
 > **Audit trail only.** Do not use as input to planning, research, or execution agents.
 > Decisions are captured in CONTEXT.md - this log preserves the alternatives considered.
 
-**Date:** 2026-06-08
-**Phase:** 1-First Screen And Login Demo
-**Areas discussed:** Lead screenshot composition, Demo login behavior, Navigation readiness, Scope guardrails
+**Date:** 2026-06-08T13:52:42Z
+**Phase:** 01-first-screen-and-login-demo
+**Areas discussed:** Lead Screenshot Composition, Demo Login Behavior, Navigation Readiness, Scope Guardrails
 
 ---
 
@@ -13,12 +13,12 @@
 
 | Option | Description | Selected |
 |--------|-------------|----------|
-| Lead portfolio screenshot and first-screen credibility | Polish the existing overview for the public demo's first impression | Yes |
-| Full redesign | Rework the dashboard broadly before publishing | |
-| New metrics module | Add more dashboard surface before validating the existing one | |
+| Existing overview screenshot | Polish the current dashboard overview as the lead portfolio screenshot. | Yes |
+| Full dashboard redesign | Redesign the dashboard surface before planning implementation. | |
+| Minimal metric landing screen | Replace the overview with a simpler screenshot-first surface. | |
 
 **User's choice:** Auto-selected recommended default.
-**Notes:** This matches the idea document's priority: reliable live link, polished first screen, and portfolio value before cleanup.
+**Notes:** Existing `app/pages/index.vue` already has KPI cards, MRR trend, ticket chart, active alerts, activity, and at-risk accounts. Phase 1 should improve this surface rather than rebuild the app.
 
 ---
 
@@ -26,12 +26,12 @@
 
 | Option | Description | Selected |
 |--------|-------------|----------|
-| Keep fake auth with prefilled or clearly visible demo credentials | Make public entry frictionless with no private setup | Yes |
-| Add real auth | Introduce production auth before demo publication | |
-| Remove login | Remove the admin-panel entry story | |
+| Prefilled or clearly visible demo credentials | Keep fake auth and make the public demo easy to enter without setup. | Yes |
+| Real authentication | Add production auth, sessions, RBAC, or provider setup. | |
+| Anonymous bypass | Remove the login moment and route visitors directly to the dashboard. | |
 
 **User's choice:** Auto-selected recommended default.
-**Notes:** Real auth is explicitly out of scope for v1.
+**Notes:** Existing `app/pages/login.vue`, `app/stores/auth.ts`, `app/plugins/auth.client.ts`, and `app/middleware/auth.global.ts` already support the fake-auth demo path.
 
 ---
 
@@ -39,12 +39,12 @@
 
 | Option | Description | Selected |
 |--------|-------------|----------|
-| Verify the existing route set works without adding new routes | Confirm overview, customers, subscriptions, tickets, alerts, and settings | Yes |
-| Add new dashboard modules | Expand product surface | |
-| Rework routing structure | Change Nuxt route organization | |
+| Verify existing navigation surface | Confirm overview, customers, subscriptions, tickets, alerts, and settings work from the shell. | Yes |
+| Add new routes | Expand the dashboard module set. | |
+| Redesign the shell | Replace the current sidebar/topbar structure. | |
 
 **User's choice:** Auto-selected recommended default.
-**Notes:** The codebase already has the route set required by the demo story.
+**Notes:** Existing `app/layouts/dashboard.vue` already includes the required route entries. Phase 1 should verify and polish, not add route scope.
 
 ---
 
@@ -52,20 +52,19 @@
 
 | Option | Description | Selected |
 |--------|-------------|----------|
-| Backend, production auth, broad cleanup, and mobile redesign | Keep Phase 1 tied to publication readiness | Yes |
-| Start production hardening | Add production platform concerns | |
-| Expand mobile parity | Optimize mobile beyond obvious breakage | |
+| Portfolio-demo scope only | Keep changes tied to login, overview, screenshot quality, and navigation confidence. | Yes |
+| Production platform scope | Add backend APIs, real auth, billing, database, or tenant behavior. | |
+| Broad redesign scope | Rework the whole UI before shipping the first public demo. | |
 
 **User's choice:** Auto-selected recommended default.
-**Notes:** These boundaries come from `.planning/idea.md`, `.planning/PROJECT.md`, and the roadmap.
+**Notes:** This matches `.planning/PROJECT.md`, `.planning/REQUIREMENTS.md`, and `.planning/ROADMAP.md`.
 
 ## the agent's Discretion
 
-- Exact UI polish details.
-- Copy tightening.
-- Spacing and chart framing adjustments.
-- Verification method.
+- Exact UI polish details, copy tightening, spacing fixes, and chart framing adjustments.
+- Route-by-route verification method.
+- Minor locale text tightening if it directly improves Phase 1 demo clarity.
 
 ## Deferred Ideas
 
-None.
+None - discussion stayed within phase scope.
