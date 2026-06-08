@@ -18,14 +18,14 @@ The demo must convince a potential client, within a short walkthrough, that this
 - [x] Overview, customers, customer detail, subscriptions, tickets, alerts, and settings routes are implemented.
 - [x] Typed mock data exists for customers, subscriptions, tickets, invoices, alerts, activities, and notes.
 - [x] Dashboard overview includes KPI cards, MRR trend chart, ticket chart, recent alerts, activity feed, and at-risk accounts.
+- [x] Phase 1 polished the first dashboard screen for the lead portfolio screenshot.
+- [x] Phase 1 verified fake login, navigation, and the first-screen dashboard path without private setup.
 - [x] Customer and subscription pages include searchable, filterable, sortable, and detail-oriented views.
 - [x] Tickets and alerts include local-state workflow actions through Pinia stores.
 - [x] i18n, Nuxt UI, Tailwind CSS, Chart.js, Lucide/Iconify icons, and Vercel-oriented build configuration are already in place.
 
 ### Active
 
-- [ ] Polish the first dashboard screen enough to be the lead portfolio screenshot.
-- [ ] Confirm fake login, navigation, customer detail, tickets, alerts, and settings work without private setup.
 - [ ] Ensure at least one ticket or alert action visibly changes local UI state during a demo.
 - [ ] Package README or portfolio notes with business problem, solution, stack, local setup, deployment notes, and a 60-second demo script.
 - [ ] Verify the Vercel-ready build path and document that no environment variables are required.
@@ -60,10 +60,10 @@ Current documentation includes README and portfolio notes, but the active milest
 
 | Decision | Rationale | Outcome |
 |----------|-----------|---------|
-| Treat this as a portfolio demo, not a production platform | The user's goal is client outreach and a reliable public demo | - Pending |
-| Preserve the existing Nuxt/Vue/Nuxt UI architecture | The app already implements the needed demo surface | - Pending |
-| Focus on publication readiness over broad cleanup | A live credible demo is more valuable than deeper refactoring before outreach | - Pending |
-| Keep auth and domain data mocked | No private setup should be required for the live URL | - Pending |
+| Treat this as a portfolio demo, not a production platform | The user's goal is client outreach and a reliable public demo | Phase 1 kept the first screen focused on the public walkthrough |
+| Preserve the existing Nuxt/Vue/Nuxt UI architecture | The app already implements the needed demo surface | Phase 1 polished existing routes instead of adding new architecture |
+| Focus on publication readiness over broad cleanup | A live credible demo is more valuable than deeper refactoring before outreach | Phase 1 changed only first-screen, login, navigation, and locale copy |
+| Keep auth and domain data mocked | No private setup should be required for the live URL | Phase 1 made demo credentials explicit and preserved fake auth |
 | Use coarse MVP phases | The remaining work is packaging, polish, verification, and publish readiness | - Pending |
 
 ## Evolution
@@ -84,4 +84,4 @@ This document evolves at phase transitions and milestone boundaries.
 4. Update Context with current state
 
 ---
-*Last updated: 2026-06-08 after initialization*
+*Last updated: 2026-06-08 after Phase 1 verification*
