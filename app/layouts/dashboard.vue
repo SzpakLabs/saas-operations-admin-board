@@ -80,12 +80,12 @@ watch(() => route.path, () => {
         <span class="text-lg font-semibold text-[var(--ui-text-highlighted)]">OpsBoard</span>
       </div>
 
-      <nav class="flex-1 px-3 py-4 space-y-1 overflow-y-auto">
+      <nav class="flex-1 px-3 py-4 space-y-1 overflow-y-auto" aria-label="Primary navigation">
         <NuxtLink
           v-for="item in navigation"
           :key="item.to"
           :to="item.to"
-          class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition-colors"
+          class="flex min-w-0 items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition-colors"
           :class="[
             route.path === item.to || (item.to !== '/' && route.path.startsWith(item.to))
               ? 'bg-[var(--ui-primary)] text-white'
@@ -93,7 +93,7 @@ watch(() => route.path, () => {
           ]"
         >
           <UIcon :name="item.icon" class="w-5 h-5 shrink-0" />
-          {{ item.label }}
+          <span class="truncate">{{ item.label }}</span>
         </NuxtLink>
       </nav>
 
@@ -122,12 +122,12 @@ watch(() => route.path, () => {
             <UButton icon="i-lucide-x" color="neutral" variant="ghost" size="sm" @click="mobileMenuOpen = false" />
           </div>
 
-          <nav class="flex-1 px-3 py-4 space-y-1 overflow-y-auto">
+          <nav class="flex-1 px-3 py-4 space-y-1 overflow-y-auto" aria-label="Mobile navigation">
             <NuxtLink
               v-for="item in navigation"
               :key="item.to"
               :to="item.to"
-              class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition-colors"
+              class="flex min-w-0 items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition-colors"
               :class="[
                 route.path === item.to || (item.to !== '/' && route.path.startsWith(item.to))
                   ? 'bg-[var(--ui-primary)] text-white'
@@ -135,7 +135,7 @@ watch(() => route.path, () => {
               ]"
             >
               <UIcon :name="item.icon" class="w-5 h-5 shrink-0" />
-              {{ item.label }}
+              <span class="truncate">{{ item.label }}</span>
             </NuxtLink>
           </nav>
 

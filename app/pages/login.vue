@@ -10,6 +10,11 @@ const form = reactive({ email: 'alex@opsboard.io', password: 'password' })
 const loading = ref(false)
 const error = ref('')
 
+const demoCredentials = computed(() => [
+  { label: t('login.demoEmail'), value: form.email, icon: 'i-lucide-mail' },
+  { label: t('login.demoPassword'), value: form.password, icon: 'i-lucide-key-round' }
+])
+
 async function handleLogin() {
   loading.value = true
   error.value = ''
@@ -67,7 +72,32 @@ async function handleLogin() {
         </div>
 
         <h1 class="text-2xl font-bold text-[var(--ui-text-highlighted)] mb-2">{{ $t('login.title') }}</h1>
-        <p class="text-[var(--ui-text-muted)] text-sm mb-8">{{ $t('login.subtitle') }}</p>
+        <p class="text-[var(--ui-text-muted)] text-sm mb-5">{{ $t('login.subtitle') }}</p>
+
+        <div class="mb-6 rounded-lg border border-[var(--ui-border)] bg-[var(--ui-bg-elevated)] p-4">
+          <div class="flex items-start gap-3">
+            <div class="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-[var(--ui-primary)]/10 text-[var(--ui-primary)]">
+              <UIcon name="i-lucide-monitor-check" class="h-4 w-4" />
+            </div>
+            <div class="min-w-0 flex-1">
+              <p class="text-sm font-semibold text-[var(--ui-text-highlighted)]">{{ $t('login.demoAccess') }}</p>
+              <p class="mt-0.5 text-xs leading-relaxed text-[var(--ui-text-muted)]">{{ $t('login.demoNote') }}</p>
+            </div>
+          </div>
+          <div class="mt-4 grid gap-2">
+            <div
+              v-for="credential in demoCredentials"
+              :key="credential.label"
+              class="flex items-center justify-between gap-3 rounded-md bg-[var(--ui-bg)] px-3 py-2 text-sm"
+            >
+              <span class="flex min-w-0 items-center gap-2 text-[var(--ui-text-muted)]">
+                <UIcon :name="credential.icon" class="h-4 w-4 shrink-0" />
+                <span class="truncate">{{ credential.label }}</span>
+              </span>
+              <code class="shrink-0 text-xs font-semibold text-[var(--ui-text-highlighted)]">{{ credential.value }}</code>
+            </div>
+          </div>
+        </div>
 
         <UAlert
           v-if="error"

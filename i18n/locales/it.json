@@ -28,6 +28,7 @@
   },
   "dashboard": {
     "title": "Panoramica Operativa",
+    "subtitle": "Ricavi, pressione del supporto, salute clienti e avvisi operativi in una vista pronta per i dirigenti.",
     "kpi": {
       "mrr": "Entrate Ricorrenti Mensili",
       "activeCustomers": "Clienti Attivi",
@@ -53,7 +54,12 @@
       "health": "Salute"
     },
     "recentActivity": "Attività Recente",
-    "vsLastMonth": "vs mese scorso"
+    "vsLastMonth": "vs mese scorso",
+    "status": {
+      "liveDemo": "Demo live",
+      "noSetup": "Nessuna configurazione privata",
+      "alerts": "avvisi critici"
+    }
   },
   "alerts": {
     "title": "Avvisi e Problemi",
@@ -287,6 +293,10 @@
     "email": "Indirizzo email",
     "emailPlaceholder": "tu{'@'}azienda.com",
     "password": "Password",
+    "demoAccess": "Accesso demo",
+    "demoEmail": "Email",
+    "demoPassword": "Password",
+    "demoNote": "Le credenziali sono precompilate per il percorso pubblico. Non servono account o accesso privato.",
     "rememberMe": "Ricordami",
     "forgotPassword": "Password dimenticata?",
     "submit": "Accedi",

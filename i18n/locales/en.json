@@ -28,6 +28,7 @@
   },
   "dashboard": {
     "title": "Operations Overview",
+    "subtitle": "Revenue, support pressure, customer health and operational alerts in one executive-ready view.",
     "kpi": {
       "mrr": "Monthly Recurring Revenue",
       "activeCustomers": "Active Customers",
@@ -53,7 +54,12 @@
       "health": "Health"
     },
     "recentActivity": "Recent Activity",
-    "vsLastMonth": "vs last month"
+    "vsLastMonth": "vs last month",
+    "status": {
+      "liveDemo": "Live demo",
+      "noSetup": "No private setup",
+      "alerts": "critical alerts"
+    }
   },
   "alerts": {
     "title": "Alerts & Issues",
@@ -287,6 +293,10 @@
     "email": "Email address",
     "emailPlaceholder": "you{'@'}company.com",
     "password": "Password",
+    "demoAccess": "Demo access",
+    "demoEmail": "Email",
+    "demoPassword": "Password",
+    "demoNote": "Credentials are prefilled for the public walkthrough. No account setup or private access is required.",
     "rememberMe": "Remember me",
     "forgotPassword": "Forgot password?",
     "submit": "Sign in",

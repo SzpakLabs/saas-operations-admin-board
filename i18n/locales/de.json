@@ -28,6 +28,7 @@
   },
   "dashboard": {
     "title": "Betriebsübersicht",
+    "subtitle": "Umsatz, Supportdruck, Kundengesundheit und operative Warnungen in einer entscheidungsreifen Ansicht.",
     "kpi": {
       "mrr": "Monatl. wiederkehrende Einnahmen",
       "activeCustomers": "Aktive Kunden",
@@ -53,7 +54,12 @@
       "health": "Gesundheit"
     },
     "recentActivity": "Letzte Aktivitäten",
-    "vsLastMonth": "ggü. Vormonat"
+    "vsLastMonth": "ggü. Vormonat",
+    "status": {
+      "liveDemo": "Live-Demo",
+      "noSetup": "Keine private Einrichtung",
+      "alerts": "kritische Warnungen"
+    }
   },
   "alerts": {
     "title": "Warnungen und Probleme",
@@ -287,6 +293,10 @@
     "email": "E-Mail-Adresse",
     "emailPlaceholder": "sie{'@'}unternehmen.com",
     "password": "Passwort",
+    "demoAccess": "Demo-Zugang",
+    "demoEmail": "E-Mail",
+    "demoPassword": "Passwort",
+    "demoNote": "Die Anmeldedaten sind für die öffentliche Demo vorausgefüllt. Kein Konto und kein privater Zugriff erforderlich.",
     "rememberMe": "Angemeldet bleiben",
     "forgotPassword": "Passwort vergessen?",
     "submit": "Anmelden",

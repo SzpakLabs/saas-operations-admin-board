@@ -106,6 +106,8 @@ const recentAlerts = computed(() => alerts.filter(a => a.status === 'active' || 
 const recentActivities = computed(() => activities.slice(0, 8))
 
 const atRiskCustomers = computed(() => customers.filter(c => c.riskFlag || c.status === 'at_risk'))
+const activeAlertsCount = computed(() => alerts.filter(a => a.status === 'active' || a.status === 'investigating').length)
+const criticalAlertsCount = computed(() => alerts.filter(a => a.severity === 'critical' && (a.status === 'active' || a.status === 'investigating')).length)
 
 function severityColor(severity: AlertSeverity) {
   const map: Record<AlertSeverity, BadgeColor> = {
@@ -132,22 +134,36 @@ function activityIcon(type: string) {
 
 <template>
   <div>
-    <div class="mb-6">
-      <h1 class="text-2xl font-bold text-[var(--ui-text-highlighted)]">{{ $t('dashboard.title') }}</h1>
+    <div class="mb-6 flex flex-col gap-3 lg:flex-row lg:items-end lg:justify-between">
+      <div class="min-w-0">
+        <h1 class="text-2xl font-bold text-[var(--ui-text-highlighted)]">{{ $t('dashboard.title') }}</h1>
+        <p class="mt-1 max-w-2xl text-sm leading-relaxed text-[var(--ui-text-muted)]">{{ $t('dashboard.subtitle') }}</p>
+      </div>
+      <div class="flex flex-wrap gap-2">
+        <UBadge color="primary" variant="soft" size="sm" icon="i-lucide-monitor-check">
+          {{ $t('dashboard.status.liveDemo') }}
+        </UBadge>
+        <UBadge color="success" variant="soft" size="sm" icon="i-lucide-database-zap">
+          {{ $t('dashboard.status.noSetup') }}
+        </UBadge>
+        <UBadge color="warning" variant="soft" size="sm" icon="i-lucide-bell">
+          {{ criticalAlertsCount }} / {{ activeAlertsCount }} {{ $t('dashboard.status.alerts') }}
+        </UBadge>
+      </div>
     </div>
 
-    <div class="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-6 gap-4 mb-6">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-6 gap-4 mb-6">
       <UCard
         v-for="kpi in kpis"
         :key="kpi.label"
-        class="col-span-1"
+        class="col-span-1 min-h-32"
       >
-        <div class="flex items-start justify-between mb-3">
-          <p class="text-xs font-medium text-[var(--ui-text-muted)] leading-tight">{{ kpi.label }}</p>
+        <div class="flex items-start justify-between gap-3 mb-3">
+          <p class="min-w-0 text-xs font-medium text-[var(--ui-text-muted)] leading-tight">{{ kpi.label }}</p>
           <UIcon :name="kpi.icon" class="w-4 h-4 shrink-0" :class="kpi.color" />
         </div>
         <p class="text-2xl font-bold text-[var(--ui-text-highlighted)]">{{ kpi.value }}</p>
-        <div class="flex items-center gap-1 mt-1">
+        <div class="flex flex-wrap items-center gap-x-1 gap-y-0.5 mt-1">
           <UIcon
             :name="kpi.trend === 'up' ? 'i-lucide-arrow-up' : 'i-lucide-arrow-down'"
             class="w-3 h-3"
@@ -164,8 +180,8 @@ function activityIcon(type: string) {
     <div class="grid grid-cols-1 xl:grid-cols-3 gap-6 mb-6">
       <UCard class="xl:col-span-2">
         <template #header>
-          <div class="flex items-center justify-between">
-            <div>
+          <div class="flex items-center justify-between gap-3">
+            <div class="min-w-0">
               <h2 class="text-sm font-semibold text-[var(--ui-text-highlighted)]">{{ $t('dashboard.mrrChart.title') }}</h2>
               <p class="text-xs text-[var(--ui-text-muted)] mt-0.5">{{ $t('dashboard.mrrChart.subtitle') }}</p>
             </div>
@@ -179,8 +195,10 @@ function activityIcon(type: string) {
 
       <UCard>
         <template #header>
-          <h2 class="text-sm font-semibold text-[var(--ui-text-highlighted)]">{{ $t('dashboard.ticketChart.title') }}</h2>
-          <p class="text-xs text-[var(--ui-text-muted)] mt-0.5">{{ $t('dashboard.ticketChart.subtitle') }}</p>
+          <div class="min-w-0">
+            <h2 class="text-sm font-semibold text-[var(--ui-text-highlighted)]">{{ $t('dashboard.ticketChart.title') }}</h2>
+            <p class="text-xs text-[var(--ui-text-muted)] mt-0.5">{{ $t('dashboard.ticketChart.subtitle') }}</p>
+          </div>
         </template>
         <div class="h-56">
           <Bar :data="ticketChartData" :options="barChartOptions" />
@@ -191,7 +209,7 @@ function activityIcon(type: string) {
     <div class="grid grid-cols-1 xl:grid-cols-3 gap-6 mb-6">
       <UCard class="xl:col-span-2">
         <template #header>
-          <div class="flex items-center justify-between">
+          <div class="flex items-center justify-between gap-3">
             <h2 class="text-sm font-semibold text-[var(--ui-text-highlighted)]">{{ $t('dashboard.activeAlerts') }}</h2>
             <UButton to="/alerts" variant="ghost" size="xs" color="primary" trailing-icon="i-lucide-arrow-right">
               {{ $t('dashboard.viewAll') }}

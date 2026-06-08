@@ -28,6 +28,7 @@
   },
   "dashboard": {
     "title": "Vue d'ensemble des opérations",
+    "subtitle": "Revenus, pression support, santé client et alertes opérationnelles dans une vue prête pour les décideurs.",
     "kpi": {
       "mrr": "Revenus Mensuels Récurrents",
       "activeCustomers": "Clients Actifs",
@@ -53,7 +54,12 @@
       "health": "Santé"
     },
     "recentActivity": "Activité Récente",
-    "vsLastMonth": "vs mois précédent"
+    "vsLastMonth": "vs mois précédent",
+    "status": {
+      "liveDemo": "Démo live",
+      "noSetup": "Aucune configuration privée",
+      "alerts": "alertes critiques"
+    }
   },
   "alerts": {
     "title": "Alertes et Problèmes",
@@ -287,6 +293,10 @@
     "email": "Adresse email",
     "emailPlaceholder": "vous{'@'}entreprise.com",
     "password": "Mot de passe",
+    "demoAccess": "Accès démo",
+    "demoEmail": "Email",
+    "demoPassword": "Mot de passe",
+    "demoNote": "Les identifiants sont pré-remplis pour la visite publique. Aucun compte ni accès privé requis.",
     "rememberMe": "Se souvenir de moi",
     "forgotPassword": "Mot de passe oublié ?",
     "submit": "Se connecter",

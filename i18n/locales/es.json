@@ -28,6 +28,7 @@
   },
   "dashboard": {
     "title": "Resumen de Operaciones",
+    "subtitle": "Ingresos, presión de soporte, salud del cliente y alertas operativas en una vista lista para ejecutivos.",
     "kpi": {
       "mrr": "Ingresos Recurrentes Mensuales",
       "activeCustomers": "Clientes Activos",
@@ -53,7 +54,12 @@
       "health": "Salud"
     },
     "recentActivity": "Actividad Reciente",
-    "vsLastMonth": "vs mes anterior"
+    "vsLastMonth": "vs mes anterior",
+    "status": {
+      "liveDemo": "Demo en vivo",
+      "noSetup": "Sin configuración privada",
+      "alerts": "alertas críticas"
+    }
   },
   "alerts": {
     "title": "Alertas e Incidencias",
@@ -287,6 +293,10 @@
     "email": "Correo electrónico",
     "emailPlaceholder": "tu{'@'}empresa.com",
     "password": "Contraseña",
+    "demoAccess": "Acceso demo",
+    "demoEmail": "Email",
+    "demoPassword": "Contraseña",
+    "demoNote": "Las credenciales están prellenadas para el recorrido público. No se requiere cuenta ni acceso privado.",
     "rememberMe": "Recordarme",
     "forgotPassword": "¿Olvidaste tu contraseña?",
     "submit": "Iniciar sesión",
