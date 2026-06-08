@@ -72,10 +72,10 @@ This roadmap finishes the existing OpsBoard codebase as a public portfolio demo.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| DEMO-01 | Phase 1 | Pending |
-| DEMO-02 | Phase 1 | Pending |
-| DEMO-03 | Phase 1 | Pending |
-| DEMO-04 | Phase 1 | Pending |
+| DEMO-01 | Phase 1 | Complete |
+| DEMO-02 | Phase 1 | Complete |
+| DEMO-03 | Phase 1 | Complete |
+| DEMO-04 | Phase 1 | Complete |
 | CUST-01 | Phase 2 | Pending |
 | CUST-02 | Phase 2 | Pending |
 | CUST-03 | Phase 2 | Pending |

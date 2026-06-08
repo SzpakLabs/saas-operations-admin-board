@@ -9,10 +9,10 @@ Requirements for the public portfolio release. Each maps to roadmap phases.
 
 ### Demo Experience
 
-- [ ] **DEMO-01**: Visitor can open the dashboard overview after fake login and quickly understand revenue, churn, tickets, alerts, and customer health.
-- [ ] **DEMO-02**: First dashboard screen is polished enough to use as the lead portfolio screenshot.
-- [ ] **DEMO-03**: Demo credentials are prefilled or clearly visible on the login page.
-- [ ] **DEMO-04**: Main navigation works across overview, customers, subscriptions, tickets, alerts, and settings.
+- [x] **DEMO-01**: Visitor can open the dashboard overview after fake login and quickly understand revenue, churn, tickets, alerts, and customer health.
+- [x] **DEMO-02**: First dashboard screen is polished enough to use as the lead portfolio screenshot.
+- [x] **DEMO-03**: Demo credentials are prefilled or clearly visible on the login page.
+- [x] **DEMO-04**: Main navigation works across overview, customers, subscriptions, tickets, alerts, and settings.
 
 ### Customer Operations
 
@@ -77,10 +77,10 @@ Which phases cover which requirements. Updated during roadmap creation.
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| DEMO-01 | Phase 1 | Pending |
-| DEMO-02 | Phase 1 | Pending |
-| DEMO-03 | Phase 1 | Pending |
-| DEMO-04 | Phase 1 | Pending |
+| DEMO-01 | Phase 1 | Complete |
+| DEMO-02 | Phase 1 | Complete |
+| DEMO-03 | Phase 1 | Complete |
+| DEMO-04 | Phase 1 | Complete |
 | CUST-01 | Phase 2 | Pending |
 | CUST-02 | Phase 2 | Pending |
 | CUST-03 | Phase 2 | Pending |
