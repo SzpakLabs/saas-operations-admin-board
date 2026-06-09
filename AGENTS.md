@@ -293,3 +293,7 @@ Do not make direct repo edits outside a GSD workflow unless the user explicitly 
 > Profile not yet configured. Run `/gsd-profile-user` to generate your developer profile.
 > This section is managed by `generate-claude-profile` -- do not edit manually.
 <!-- GSD:profile-end -->
+
+## GSD Routing
+
+For GSD tasks, read `.planning/GSD_ROUTING.md` before running any GSD command. Manual GSD only by default: no full `--auto` pipelines unless explicitly requested, no GPT-5.5 medium by default, cheap-first routing, and stop after the requested GSD stage.
